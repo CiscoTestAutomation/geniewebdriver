@@ -6,13 +6,20 @@ try:
 except ImportError:
     topology = None
 
+try:
+    from ats import connections
+
+except ImportError:
+    connections = None
+
+@unittest.skipIf(connections is None, "missing connections module")
 class Test_WebDriverConnector(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
         global WebDriverConnector
 
-        from webdriver import WebDriverConnector
+        from webdriver.connectors import WebDriverConnector
 
     @unittest.skipIf(topology is None, "missing topology module")
     def test_init_from_yaml(self):
@@ -22,7 +29,7 @@ devices:
         type: something
         connections:
             chrome:
-                class: webdriver.WebDriverConnector
+                class: webdriver.connectors.WebDriverConnector
                 driver: Chrome
 '''
         with patch('webdriver.connectors.webdriver') as wbd:
@@ -50,7 +57,7 @@ devices:
         device.connections['boom'] = {
             'driver':'Chrome',
             'chrome_options': '111',
-            'class': 'webdriver.WebDriverConnector',
+            'class': 'webdriver.connectors.WebDriverConnector',
         }
 
 
@@ -74,7 +81,7 @@ devices:
         device.connections['boom'] = {
             'driver':'Chrome',
             'chrome_options': '111',
-            'class': 'webdriver.WebDriverConnector',
+            'class': 'webdriver.connectors.WebDriverConnector',
         }
 
 
@@ -98,7 +105,7 @@ devices:
         device.connections['boom'] = {
             'driver':'Chrome',
             'chrome_options': '111',
-            'class': 'webdriver.WebDriverConnector',
+            'class': 'webdriver.connectors.WebDriverConnector',
         }
 
 

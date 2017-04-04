@@ -50,7 +50,7 @@ class Test_Interact(unittest.TestCase):
             interact = Interactions(driver = self.driver, timeout = 10)
             interact.click_link_with_text(text = 'kaboom')
             self.driver.find_element_by_link_text.assert_called_with('kaboom')
-            self.driver.find_element_by_link_text().click.assert_called()
+            self.driver.find_element_by_link_text().click.assert_called_with()
 
     def test_type_in_active_input_element(self):
         with patch('webdriver.wait.Wait') as wait:
@@ -67,7 +67,7 @@ class Test_Interact(unittest.TestCase):
 
                 ac.assert_called_with(self.driver)
                 ac().double_click.assert_called_with(object)
-                ac().double_click().perform.assert_called()
+                ac().double_click().perform.assert_called_with()
 
         with patch('webdriver.wait.Wait') as wait:
             with patch('webdriver.interact.ActionChains') as ac:
@@ -78,7 +78,7 @@ class Test_Interact(unittest.TestCase):
                 self.driver.find_element.assert_called_with((By.ID, 'tomhanks'))
                 ac.assert_called_with(self.driver)
                 ac().double_click.assert_called_with('boomyeah!')
-                ac().double_click().perform.assert_called()
+                ac().double_click().perform.assert_called_with()
 
     def test_hover(self):
         with patch('webdriver.wait.Wait') as wait:
@@ -88,7 +88,7 @@ class Test_Interact(unittest.TestCase):
 
                 ac.assert_called_with(self.driver)
                 ac().move_to_element.assert_called_with(object)
-                ac().move_to_element().perform.assert_called()
+                ac().move_to_element().perform.assert_called_with()
 
         with patch('webdriver.wait.Wait') as wait:
             with patch('webdriver.interact.ActionChains') as ac:
@@ -97,7 +97,7 @@ class Test_Interact(unittest.TestCase):
 
                 ac.assert_called_with(self.driver)
                 ac().move_to_element_with_offset.assert_called_with(object,1, 2)
-                ac().move_to_element_with_offset().perform.assert_called()
+                ac().move_to_element_with_offset().perform.assert_called_with()
 
         with patch('webdriver.wait.Wait') as wait:
             with patch('webdriver.interact.ActionChains') as ac:
@@ -108,7 +108,7 @@ class Test_Interact(unittest.TestCase):
                 self.driver.find_element.assert_called_with((By.ID, 'tomhanks'))
                 ac.assert_called_with(self.driver)
                 ac().move_to_element.assert_called_with('boomyeah!')
-                ac().move_to_element().perform.assert_called()
+                ac().move_to_element().perform.assert_called_with()
 
     def test_select_from_drop_down(self):
         with patch('webdriver.wait.Wait') as wait:
@@ -178,8 +178,7 @@ class Test_Interact(unittest.TestCase):
                          wait().until.visibility_of_element_located.call_count,
                             2)
 
-                ac().drag_and_drop.assert_called()
-                ac().drag_and_drop().perform.assert_called()
+                ac().drag_and_drop().perform.assert_called_with()
 
     def test_drag_and_drop_element(self):
         with patch('webdriver.wait.Wait') as wait:
@@ -188,7 +187,7 @@ class Test_Interact(unittest.TestCase):
                 interact.drag_and_drop_element('abc', 'def')
 
                 ac().drag_and_drop.assert_called_with('abc', 'def')
-                ac().drag_and_drop().perform.assert_called()
+                ac().drag_and_drop().perform.assert_called_with()
 
     def test_scroll_into_view(self):
         with patch('webdriver.wait.Wait') as wait:
