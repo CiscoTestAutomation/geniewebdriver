@@ -178,8 +178,7 @@ setup(
     },
 
     # package dependencies
-    install_requires =  ['selenium',
-                         'ats.connections'],
+    install_requires =  ['selenium',],
 
     # any additional groups of dependencies.
     # install using: $ pip install -e .[dev]
