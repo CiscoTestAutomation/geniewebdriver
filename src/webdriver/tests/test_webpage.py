@@ -29,8 +29,23 @@ class Test_WebPage(unittest.TestCase):
                 interact.assert_called_with(self.driver, 10)
                 self.assertEqual(page.url, '/lol')
 
-                page = TestPage(self.driver, base_url = 'http://mock_url/')
+                page = TestPage(self.driver, base_url = 'http://mock_url/' ,a=1)
                 self.assertEqual(page.url, 'http://mock_url/lol')
+                self.assertEqual(page.base_url, 'http://mock_url/')
+                self.assertEqual(page.urlkwargs, dict(a=1))
+
+    def test_subclass_build_url(self):
+        with patch('webdriver.wait.Wait') as wait:
+            with patch('webdriver.interact.Interactions') as interact:
+                
+                class TestPage(WebPage):
+                    URL = '/lol'
+                
+                    def build_url(self):
+                        return 'lalalala'
+
+                page = TestPage(self.driver)
+                self.assertEqual(page.url, 'lalalala')
 
     def test_redirect_and_dir(self):
         with patch('webdriver.wait.Wait') as wait:

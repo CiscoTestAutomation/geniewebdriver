@@ -18,7 +18,13 @@ class WebPage(object):
         self.timeout = timeout
         self.wait = wait.Wait(self.driver, timeout)
         self.interact = interact.Interactions(self.driver, timeout)
-        self.url = urljoin(base_url, self.URL.format(**urlkwargs))
+        self.base_url = base_url
+        self.urlkwargs = urlkwargs
+
+        self.url = self.build_url()
+
+    def build_url(self):
+        return urljoin(self.base_url, self.URL.format(**self.urlkwargs))
 
     def __getattr__(self, attr):
         # redirect get attribute to self.driver

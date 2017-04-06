@@ -67,10 +67,10 @@ class TestCommand(Command):
            failfast = True))
 
 
-class BuildAndPreviewDocsCommand(Command):
+class BuildDocs(Command):
     user_options = []
-    description = 'CISCO SHARED : Build and privately distribute ' \
-        'Sphinx documentation for this package'
+    description = ('CISCO SHARED : Build and privately distribute '
+                   'Sphinx documentation for this package')
 
     def initialize_options(self):
         pass
@@ -80,24 +80,12 @@ class BuildAndPreviewDocsCommand(Command):
 
     def run(self):
         user = os.environ['USER']
-        sphinx_build_cmd = "sphinx-build -b html -c ../docs " \
+        sphinx_build_cmd = "sphinx-build -b html -c docs/ " \
             "-d ./__build__/documentation/doctrees docs/ ./__build__/documentation/html"
-        target_dir = "/users/{user}/WWW/cisco_shared/{pkg_name}".\
-            format(user = user, pkg_name = pkg_name)
-        mkdir_cmd = "mkdir -p {target_dir}".format(target_dir=target_dir)
-        rsync_cmd = "rsync -rvc ./__build__/documentation/ {target_dir}".\
-            format(target_dir=target_dir)
         try:
-            ret_code = subprocess.call(shlex.split(mkdir_cmd))
-            if not ret_code:
-                ret_code = subprocess.call(shlex.split(sphinx_build_cmd))
-                if not ret_code:
-                    ret_code = subprocess.call(shlex.split(rsync_cmd))
-                    print("\nYou may preview the documentation at the following URL:")
-                    print("http://wwwin-home.cisco.com/~{user}/cisco_shared/{pkg_name}/html".\
-                        format(user=user, pkg_name=pkg_name))
-                    sys.exit(0)
-            sys.exit(1)
+
+            ret_code = subprocess.call(shlex.split(sphinx_build_cmd))
+            sys.exit(0)
         except Exception as e:
             print("Failed to build documentation : {}".format(str(e)))
             sys.exit(1)
@@ -202,7 +190,7 @@ setup(
     cmdclass = {
         'clean': CleanCommand,
         'test': TestCommand,
-        'preview_docs': BuildAndPreviewDocsCommand,
+        'docs': BuildDocs,
     },
 
     # non zip-safe (never tested it)

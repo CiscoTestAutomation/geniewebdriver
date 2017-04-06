@@ -21,7 +21,7 @@ class PageElement(object):
                                   'subclassing')
 
     def __get__(self, obj, owner):
-        return obj.driver.find_element(self.locator)
+        return obj.driver.find_element(*self.locator)
 
 
 class TextBox(PageElement):

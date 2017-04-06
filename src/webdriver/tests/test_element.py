@@ -27,13 +27,13 @@ class Test_Element(unittest.TestCase):
             driver = self.driver
 
         obj = Dummy().pe
-        self.driver.find_element.assert_called_with((By.ID, 'abc'))
+        self.driver.find_element.assert_called_with(By.ID, 'abc')
 
         class Dummy(Mock):
-            pe = PageElement(object)
+            pe = PageElement((By.ID, 'efg'))
             driver = self.driver
         obj = Dummy().pe
-        self.driver.find_element.assert_called_with(object)
+        self.driver.find_element.assert_called_with(By.ID, 'efg')
 
         with self.assertRaises(NotImplementedError):
             Dummy().pe = 1
