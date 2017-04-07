@@ -58,6 +58,37 @@ test scripts by defining the connection methods under their testbed YAML file.
 This package is thus useable for straight Selenium testing under test harnesses
 such ass Py.test, Python unittest, etc, as well as through pyATS.
 
+Benefits
+--------
+
+This packages enables pyATS users to write Selenium web page automation code and
+leverage all the feature benefits of core pyATS infrastructure, namely:
+
+- using YAML testbed file to abstract out the need to hard-code web browser
+  driver details
+
+- using `connection methodology`_ to support multiple simultaneous driver
+  instance, windows & sessions, including adding them to a connection pool and 
+  performing actions in a distributed fashion.
+
+- take advantage of concurrency_
+  
+  - running multiple test scripts in parallel through Easypy
+
+  - using Pcall to run tests, functions etc, synchronously
+
+- build agnostic library infrastructure using Cisco-Shared `abstract`_ package,
+  allowing the library to handle minute differences between page revisions 
+  through tokens.
+
+- mix & match feature tests with selenium tests: fulfilling the need to test
+  Cisco DNA/SDN architecture, and being able to intermix both northbound and
+  southbound tests together in one test suite.
+
+.. _connection methodology: http://wwwin-pyats.cisco.com/documentation/latest/connections/index.html
+.. _concurrency: http://wwwin-pyats.cisco.com/documentation/latest/async/index.html
+.. _abstract: http://wwwin-pyats.cisco.com/cisco-shared/abstract/html/
+
 
 Prerequisite
 ------------

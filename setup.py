@@ -105,7 +105,14 @@ def find_version(*paths):
         return version_match.group(1)
     raise RuntimeError("Unable to find version string.")
 
+def find_examples(*paths):
+    '''finds all example files'''
+    files = []
+    for (dirpath, dirnames, filenames) in os.walk(os.path.join(*paths)):            
+        files.append((dirpath, [os.path.join(dirpath, f) for f in filenames]))
 
+    return files
+    
 # launch setup
 setup(
     name = pkg_name,
@@ -184,7 +191,7 @@ setup(
     # format:
     #   [('target', ['list', 'of', 'files'])]
     # where target is sys.prefix/<target>
-    data_files = [],
+    data_files = find_examples('examples'),
 
     # custom commands for setup.py
     cmdclass = {

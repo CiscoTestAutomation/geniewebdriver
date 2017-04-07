@@ -38,7 +38,7 @@ methods and attribute to represent interactions and form values. Features:
     #   a page representing www.google.com search actions
 
     from webdriver import WebPage
-    from webdriver.element import TextBox
+    from webdriver.element import TextBox, Button
 
     class GoogleSearch(WebPage):
 
