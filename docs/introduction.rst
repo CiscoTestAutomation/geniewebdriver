@@ -46,17 +46,17 @@ clicks, etc, and in turn, automate the testing of web pages and web UIs.
 Goal
 ----
 
-The goal of this WebDriver package is not to replace any of the above. Rather, 
-its intention is to translate the above 'raw' coding methods into more fluid, 
-object-oriented coding paradigms, and offer base classes, guidelines and 
-examples on building extendable libraries for websites under test. 
+The goal of pyATS WebDriver package (``webdriver``) is not to replace any of the
+above. Rather, its intention is to translate the above 'raw' coding methods into
+more fluid, object-oriented coding paradigms, and offer base classes, guidelines
+and examples on building extendable libraries for websites under test. 
 
 In addition, this package also optionally enables users to treat a web browser 
 under the pyATS topology/device architecture, and connects to a browser in their
 test scripts by defining the connection methods under their testbed YAML file.
 
 This package is thus useable for straight Selenium testing under test harnesses
-such ass Py.test, Python unittest, etc, as well as through pyATS.
+such as Py.test, Python unittest, etc, as well as through pyATS.
 
 Benefits
 --------
