@@ -58,8 +58,8 @@ abstract out the test library code itself. This is conceptually similar to how
 scripts should be able to run on multiple testbeds with the same topology.
 
 This ``webdriver`` package defines the connector implementation 
-``webdriver.WebDriverConnector`` required to adapt a pyATS topology device 
-object to corresponding web browser driver.
+``webdriver.connectors.WebDriverConnector`` required to adapt a pyATS topology 
+device object to corresponding web browser driver.
 
 .. code-block:: yaml
 
@@ -77,7 +77,7 @@ object to corresponding web browser driver.
             connections:
                 webdriver:
                     # specify the driver connector class
-                    class: webdriver.WebDriverConnector
+                    class: webdriver.connectors.WebDriverConnector
                     driver: Firefox
                     executable_path: '/path/to/firefox/geckodriver'
 
@@ -93,7 +93,7 @@ object to corresponding web browser driver.
             type: browser
             connections:
                 webdriver:
-                    class: webdriver.WebDriverConnector
+                    class: webdriver.connectors.WebDriverConnector
                     driver: Chrome
                     executable_path: /path/to/chromedriver
 
@@ -138,11 +138,11 @@ object form.
 
     # etc..
 
-In essence, the ``webdriver.WebDriverConnector`` is a pyATS `connection class`_
-implementation that converts YAML connection specifications into an actual 
-Selenium Driver instance. All arguments/options defined under the connection
-definition is converted into that driver's ``__init__()`` argument. For example,
-see `ChromeDriver documentation`_.
+In essence, the ``webdriver.connectors.WebDriverConnector`` is a pyATS 
+`connection class`_ implementation that converts YAML connection specifications
+into an actual Selenium Driver instance. All arguments/options defined under 
+the connection definition is converted into that driver's ``__init__()`` 
+argument. For example, see `ChromeDriver documentation`_.
 
 After connection, the ``device`` object modeling a selenium driver gains all
 the driver's abilities and APIs, as defined in the `binding documentation`_. Any
