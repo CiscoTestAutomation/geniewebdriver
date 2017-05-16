@@ -68,7 +68,7 @@ device object to corresponding web browser driver.
     #
     #   pyATS testbed yaml example for defining a selenium browser under device
 
-    topology:
+    testbed:
         name: example_selenium_testbed
 
     devices:
