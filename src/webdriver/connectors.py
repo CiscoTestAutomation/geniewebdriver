@@ -51,10 +51,9 @@ class WebDriverConnector(BaseConnection):
     @property
     def connected(self):
         try:
-            return self.driver.service.process.poll() is None
-        except AttributeError:
+            return bool(self.driver.title) or True
+        except Exception:
             return False
-
 
     def __getattr__(self, attr):
         # redirect get attribute to self.driver

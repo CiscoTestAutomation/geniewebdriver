@@ -1,6 +1,20 @@
 Changelog
 =========
 
+Aug 8, 2017
+-----------
+
++-------------------------------+-------------------------------+
+| Module                        | Versions                      |
++===============================+===============================+
+| ``webdriver``                 | 1.0.1                         |
++-------------------------------+-------------------------------+
+
+
+- Fixed a bug where the connector could not establish connection to ``Remote``
+  driver sessions using Selenium Grid.
+
+
 May 2017
 --------
 
