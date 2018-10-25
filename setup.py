@@ -1,4 +1,4 @@
-#! /bin/env python
+#! /usr/bin/env python
 
 """Setup file for webdriver package
 
@@ -108,11 +108,11 @@ def find_version(*paths):
 def find_examples(*paths):
     '''finds all example files'''
     files = []
-    for (dirpath, dirnames, filenames) in os.walk(os.path.join(*paths)):            
+    for (dirpath, dirnames, filenames) in os.walk(os.path.join(*paths)):
         files.append((dirpath, [os.path.join(dirpath, f) for f in filenames]))
 
     return files
-    
+
 # launch setup
 setup(
     name = pkg_name,
