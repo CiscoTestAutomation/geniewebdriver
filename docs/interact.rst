@@ -12,7 +12,7 @@ method calls.
     #
     #   using interaction class
 
-    from webdriver.interact import Interactions
+    from genie.webdriver.interact import Interactions
 
     # given a driver... and a default interaction timeout of 10s
     interaction = Interactions(driver, 10)

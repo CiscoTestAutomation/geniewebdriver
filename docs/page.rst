@@ -37,8 +37,8 @@ methods and attribute to represent interactions and form values. Features:
     #
     #   a page representing www.google.com search actions
 
-    from webdriver import WebPage
-    from webdriver.element import TextBox, Button
+    from genie.webdriver import WebPage
+    from genie.webdriver.element import TextBox, Button
 
     class GoogleSearch(WebPage):
 
@@ -196,8 +196,8 @@ of locator:
     #   page element example
 
     # keep in mind that this needs to work with WebPage class
-    from webdriver import WebPage
-    from webdriver.element import PageElement
+    from genie.webdriver import WebPage
+    from genie.webdriver.element import PageElement
 
     class LoginPage(WebPage):
 
@@ -283,8 +283,8 @@ Using these subclasses, we can further refactor the above ``LoginPage`` as:
     #   refactoring login page using subclass of PageElements
 
     # keep in mind that this needs to work with WebPage class
-    from webdriver import WebPage
-    from webdriver.element import Button, TextBox, Checkbox
+    from genie.webdriver import WebPage
+    from genie.webdriver.element import Button, TextBox, Checkbox
 
     class LoginPage(WebPage):
 

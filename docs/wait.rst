@@ -51,7 +51,7 @@ attribute chains depics what the user wants to do.
 
     # this package wraps this in a better mechanism
     # -----------------------------------------------------------------
-    from webdriver.wait import Wait
+    from genie.webdriver.wait import Wait
 
     wait = Wait(driver, 10)
     element = wait.until.presence_of_element_located(id = 'myDynamicElement')
@@ -88,7 +88,7 @@ of time.
     #
     #   implicit waits
 
-    from webdriver.wait import Wait
+    from genie.webdriver.wait import Wait
 
     # assume we have a driver
     # and a default wait timer of 30s
@@ -138,7 +138,7 @@ wrapped in ``webdriver.wait.Wait`` class, allowing for shorthand use.
     #
     #   explicit waits
 
-    from webdriver.wait import Wait
+    from genie.webdriver.wait import Wait
 
     # assume we have a driver
     # with a default timeout of 10s

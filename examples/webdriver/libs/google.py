@@ -1,5 +1,5 @@
-from webdriver import WebPage
-from webdriver.element import TextBox, Button
+from genie.webdriver import WebPage
+from genie.webdriver.element import TextBox, Button
 
 from urllib.parse import urljoin, quote
 

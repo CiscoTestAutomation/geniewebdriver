@@ -9,7 +9,7 @@ devices:
         type: browser
         connections:
             webdriver:
-                class: webdriver.connectors.WebDriverConnector
+                class: genie.webdriver.connectors.WebDriverConnector
                 driver: Firefox
                 firefox_profile: null
                 firefox_binary: null
@@ -24,7 +24,7 @@ devices:
         type: browser
         connections:
             webdriver:
-                class: webdriver.connectors.WebDriverConnector
+                class: genie.webdriver.connectors.WebDriverConnector
                 driver: Chrome
                 executable_path:
                 port:
