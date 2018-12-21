@@ -19,7 +19,7 @@ class Test_WebDriverConnector(unittest.TestCase):
     def setUpClass(cls):
         global WebDriverConnector
 
-        from webdriver.connectors import WebDriverConnector
+        from genie.webdriver.connectors import WebDriverConnector
 
     @unittest.skipIf(topology is None, "missing topology module")
     def test_init_from_yaml(self):

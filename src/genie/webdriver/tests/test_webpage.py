@@ -9,7 +9,7 @@ class Test_WebPage(unittest.TestCase):
     def setUpClass(cls):
         global WebPage
 
-        from webdriver import WebPage
+        from genie.webdriver import WebPage
     
     def setUp(self):
         self.driver = Mock()

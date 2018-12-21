@@ -9,7 +9,7 @@ class Test_Element(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         global PageElement, TextBox, Button, RadioButton, Checkbox, Selector
-        from webdriver.element import (
+        from genie.webdriver.element import (
             PageElement, 
             TextBox, 
             Button, 

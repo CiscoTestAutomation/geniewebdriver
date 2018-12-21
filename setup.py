@@ -1,101 +1,46 @@
-#! /usr/bin/env python
+#! /bin/env python
 
-"""Setup file for webdriver package
+'''Setup file for Libs
 
 See:
     https://packaging.python.org/en/latest/distributing.html
-"""
+'''
 
 import os
 import re
 import sys
-import shlex
-import unittest
-import subprocess
 
-from setuptools import setup, find_packages, Command
-from setuptools.command.test import test
+from setuptools import setup, find_packages
 
-pkg_name = 'webdriver'
+_INTERNAL_SUPPORT = 'asg-genie-support@cisco.com'
+_EXTERNAL_SUPPORT = 'pyats-support-ext@cisco.com'
 
-class CleanCommand(Command):
-    '''Custom clean command
+_INTERNAL_LICENSE = 'Cisco Systems, Inc. Cisco Confidential',
+_EXTERNAL_LICENSE = 'Apache 2.0'
 
-    cleanup current directory:
-        - removes build/
-        - removes src/*.egg-info
-        - removes *.pyc and __pycache__ recursively
+_INTERNAL_URL = 'http://wwwin-genie.cisco.com/'
+_EXTERNAL_URL = 'https://developer.cisco.com/site/pyats/'
 
-    Example
-    -------
-        python setup.py clean
+DEVNET_CMDLINE_OPT = '--devnet'
+devnet = False
+if DEVNET_CMDLINE_OPT in sys.argv:
+    # avoiding argparse complexity :o
+    sys.argv.remove(DEVNET_CMDLINE_OPT)
+    devnet = True
 
-    '''
+# pyats support mailer
+SUPPORT = _EXTERNAL_SUPPORT if devnet else _INTERNAL_SUPPORT
 
-    user_options = []
-    description = 'CISCO SHARED : Clean all build artifacts'
+# license statement
+LICENSE = _EXTERNAL_LICENSE if devnet else _INTERNAL_LICENSE
 
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        os.system('rm -vrf ./build ./dist ./src/*.egg-info')
-        os.system('find . -type f -name "*.pyc" | xargs rm -vrf')
-        os.system('find . -type d -name "__pycache__" | xargs rm -vrf')
-
-class TestCommand(Command):
-    user_options = []
-    description = 'CISCO SHARED : Run unit tests against this package'
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        # where the tests are (relative to here)
-        tests = os.path.join('src', pkg_name, 'tests')
-
-        # call unittests
-        sys.exit(unittest.main(
-            module = None,
-           argv = ['python -m unittest', 'discover', tests],
-           failfast = True))
-
-
-class BuildDocs(Command):
-    user_options = []
-    description = ('CISCO SHARED : Build and privately distribute '
-                   'Sphinx documentation for this package')
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        user = os.environ['USER']
-        sphinx_build_cmd = "sphinx-build -b html -c docs/ " \
-            "-d ./__build__/documentation/doctrees docs/ ./__build__/documentation/html"
-        try:
-
-            ret_code = subprocess.call(shlex.split(sphinx_build_cmd))
-            sys.exit(0)
-        except Exception as e:
-            print("Failed to build documentation : {}".format(str(e)))
-            sys.exit(1)
-
+# project url
+URL = _EXTERNAL_URL if devnet else _INTERNAL_URL
 
 def read(*paths):
     '''read and return txt content of file'''
-    with open(os.path.join(os.path.dirname(__file__), *paths)) as fp:
+    with open(os.path.join(*paths)) as fp:
         return fp.read()
-
 
 def find_version(*paths):
     '''reads a file and returns the defined __version__ value'''
@@ -105,53 +50,74 @@ def find_version(*paths):
         return version_match.group(1)
     raise RuntimeError("Unable to find version string.")
 
-def find_examples(*paths):
-    '''finds all example files'''
-    files = []
-    for (dirpath, dirnames, filenames) in os.walk(os.path.join(*paths)):
-        files.append((dirpath, [os.path.join(dirpath, f) for f in filenames]))
+def build_version_range(version):
+    '''
+    for any given version, return the major.minor version requirement range
+    eg: for version '3.4.7', return '>=3.4.0, <3.5.0'
+    '''
+    req_ver = version.split('.')
+    version_range = '>= %s.%s.0, < %s.%s.0' % \
+        (req_ver[0], req_ver[1], req_ver[0], int(req_ver[1])+1)
 
-    return files
+    return version_range
+
+def version_info(*paths):
+    '''returns the result of find_version() and build_version_range() tuple'''
+
+    version = find_version(*paths)
+    return version, build_version_range(version)
+
+# compute version range
+version, version_range = version_info('src', 'genie', 'webdriver', '__init__.py')
+
+# generate package dependencies
+install_requires = ['selenium']
+
 
 # launch setup
 setup(
-    name = pkg_name,
-    version = find_version('src', pkg_name, '__init__.py'),
+    name = 'genie.webdriver',
+    version = version,
 
     # descriptions
-    description =  'WebDriver glueing pyATS and Selenium together',
+    description = 'A collection of tools and base classes intended to '
+                  'simplify and standardize how automation engineers '
+                  'develop Selenium based libraries',
     long_description = read('DESCRIPTION.rst'),
 
-    # the package's documentation page.
-    url = 'http://wwwin-pyats.cisco.com/cisco-shared/html/{}/docs/index.html'.\
-        format(pkg_name),
+    # the project's main homepage.
+    url = URL,
 
     # author details
-    author = 'Siming Yuan',
-    author_email = 'siyuan@cisco.com',
-    maintainer_email =  'pyats-support@cisco.com',
+    author = 'Cisco Systems Inc.',
+    author_email = SUPPORT,
 
     # project licensing
-    license = 'Cisco Systems, Inc. Cisco Confidential',
-
-    platforms =  ['CEL',],
+    license = LICENSE,
 
     # see https://pypi.python.org/pypi?%3Aaction=list_classifiers
-    classifiers = [
+    classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Intended Audience :: Developers',
-        'Intended Audience :: Telecommunications Industry'
-        'License :: Other/Proprietary License',
+        'Intended Audience :: Telecommunications Industry',
+        'Intended Audience :: Information Technology',
+        'License :: OSI Approved :: Apache Software License',
         'Operating System :: POSIX :: Linux',
-        'Operating System :: OS Independent',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: Implementation :: CPython',
         'Topic :: Software Development :: Testing',
+        'Topic :: Software Development :: Build Tools',
+        'Topic :: Software Development :: Libraries',
+        'Topic :: Software Development :: Libraries :: Python Modules',
     ],
 
     # project keywords
-    keywords = 'pyats cisco-shared',
+    keywords = 'genie pyats test automation webdriver',
+
+    # uses namespace package
+    namespace_packages = ['genie'],
 
     # project packages
     packages = find_packages(where = 'src'),
@@ -162,18 +128,15 @@ setup(
     },
 
     # additional package data files that goes into the package itself
-    package_data = {'':['README.rst']},
-
-    # Standalone scripts
-    scripts = [
-    ],
+    package_data = {
+    },
 
     # console entry point
     entry_points = {
     },
 
     # package dependencies
-    install_requires =  ['selenium',],
+    install_requires = install_requires,
 
     # any additional groups of dependencies.
     # install using: $ pip install -e .[dev]
@@ -182,23 +145,18 @@ setup(
                 'restview',
                 'Sphinx',
                 'sphinxcontrib-napoleon',
-                'sphinxcontrib-mockautodoc',
                 'sphinx-rtd-theme'],
     },
+
+    # external modules
+    ext_modules = [],
 
     # any data files placed outside this package.
     # See: http://docs.python.org/3.4/distutils/setupscript.html
     # format:
     #   [('target', ['list', 'of', 'files'])]
     # where target is sys.prefix/<target>
-    data_files = find_examples('examples'),
-
-    # custom commands for setup.py
-    cmdclass = {
-        'clean': CleanCommand,
-        'test': TestCommand,
-        'docs': BuildDocs,
-    },
+    data_files = [],
 
     # non zip-safe (never tested it)
     zip_safe = False,

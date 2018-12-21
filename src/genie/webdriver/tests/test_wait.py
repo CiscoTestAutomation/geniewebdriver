@@ -7,7 +7,7 @@ class Test_Wait(unittest.TestCase):
     def setUpClass(cls):
         global Wait
 
-        from webdriver.wait import Wait
+        from genie.webdriver.wait import Wait
 
     def setUp(self):
         self.driver = Mock()
@@ -24,7 +24,7 @@ class Test_Wait(unittest.TestCase):
 
         wait = Wait(driver = self.driver, timeout = 10)
 
-        from webdriver.wait import WaitUntil, WaitUntilNot
+        from genie.webdriver.wait import WaitUntil, WaitUntilNot
         self.assertTrue(isinstance(wait.until, WaitUntil))
         self.assertTrue(isinstance(wait.until_not, WaitUntilNot))
 
@@ -69,7 +69,7 @@ class Test_WaitUntil(unittest.TestCase):
     def setUpClass(cls):
         global WaitUntil, By
 
-        from webdriver.wait import WaitUntil
+        from genie.webdriver.wait import WaitUntil
         from selenium.webdriver.common.by import By
 
     def setUp(self):
@@ -384,7 +384,7 @@ class Test_WaitUntil(unittest.TestCase):
     def setUpClass(cls):
         global WaitUntil, By
 
-        from webdriver.wait import WaitUntil
+        from genie.webdriver.wait import WaitUntil
         from selenium.webdriver.common.by import By
 
     def setUp(self):
@@ -699,7 +699,7 @@ class Test_WaitUntil(unittest.TestCase):
     def setUpClass(cls):
         global WaitUntil, By
 
-        from webdriver.wait import WaitUntil
+        from genie.webdriver.wait import WaitUntil
         from selenium.webdriver.common.by import By
 
     def setUp(self):
@@ -1014,7 +1014,7 @@ class Test_WaitUntilNot(unittest.TestCase):
     def setUpClass(cls):
         global WaitUntilNot, By
 
-        from webdriver.wait import WaitUntilNot
+        from genie.webdriver.wait import WaitUntilNot
         from selenium.webdriver.common.by import By
 
     def setUp(self):

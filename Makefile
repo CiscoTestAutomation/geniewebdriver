@@ -5,22 +5,23 @@
 #                               Cisco Systems, Inc.                            #
 #                                                                              #
 ################################################################################
-#                            WebDriver Internal Makefile
+#                            genie.webdriver Internal Makefile
 #
 # Author:
-#   Siming Yuan    (siyuan)    - CSG
+#   pyats-support@cisco.com
 #
 # Support:
-#	python-core@cisco.com
+#   pyats-support@cisco.com
 #
 # Version:
-#   v1.0
+#   v2.0
 #
-# Date: 
-#   April 2017
+# Date:
+#   December 2018
 #
 # About This File:
-#   This script will build the webdriver package for distribution in PyPI server
+#   This script will build the genie.webdriver package for
+#   distribution in PyPI server
 #
 # Requirements:
 #	1. Module name is the same as package name.
@@ -28,98 +29,129 @@
 ################################################################################
 
 # Variables
-PKG_NAME      = webdriver
-BUILDDIR      = $(shell pwd)/__build__
+PKG_NAME      = genie.webdriver
+BUILD_DIR     = $(shell pwd)/__build__
+DIST_DIR      = $(BUILD_DIR)/dist
 PROD_USER     = pyadm@pyats-ci
-PROD_PKGS     = /auto/pyats/packages/cisco-shared
+PROD_PKGS     = /auto/pyats/packages/cisco-shared/genie
 PYTHON        = python
-TESTCMD       = python -m unittest discover -f tests/
-DISTDIR       = $(BUILDDIR)/dist
+TESTCMD       = ./tests/runAll --path=./tests/
+BUILD_CMD     = $(PYTHON) setup.py bdist_wheel --dist-dir=$(DIST_DIR)
+PYPIREPO      = pypitest
 
-.PHONY: clean package distribute develop undevelop help\
-        docs distribute_docs test
+# Development pkg requirements
+DEPENDENCIES  = restview psutil Sphinx wheel asynctest
+DEPENDENCIES += setproctitle sphinxcontrib-napoleon sphinx-rtd-theme httplib2
+DEPENDENCIES += pip-tools
+
+.PHONY: clean package distribute develop undevelop help devnet\
+        docs test install_build_deps uninstall_build_deps
 
 help:
 	@echo "Please use 'make <target>' where <target> is one of"
 	@echo ""
-	@echo "package         : Build the package"
-	@echo "test            : Test the package"
-	@echo "distribute      : Distribute the package to PyPi server"
-	@echo "clean           : Remove build artifacts"
-	@echo "develop         : Set package to development mode"
-	@echo "undevelop       : Unset the package from development mode"
-	@echo "docs             : Build Sphinx documentation for this package"
+	@echo "package               Build the package"
+	@echo "test                  Test the package"
+	@echo "distribute            Distribute the package to internal Cisco PyPi server"
+	@echo "clean                 Remove build artifacts"
+	@echo "develop               Build and install development package"
+	@echo "undevelop             Uninstall development package"
+	@echo "docs                  Build Sphinx documentation for this package"
+	@echo "devnet                Build DevNet package."
+	@echo "install_build_deps    install pyats-distutils"
+	@echo "uninstall_build_deps  remove pyats-distutils"
+	@echo ""
+	@echo "     --- build arguments ---"
+	@echo " DEVNET=true              build for devnet style"
 
-test:
-	@$(TESTCMD)
+devnet: package
+	@echo "Completed building DevNet packages"
+	@echo ""
 
+install_build_deps:
+	@echo "--------------------------------------------------------------------"
+	@echo "Installing cisco-distutils"
+	@pip install --index-url=http://pyats-pypi.cisco.com/simple \
+	             --trusted-host=pyats-pypi.cisco.com \
+	             cisco-distutils
+ 
+uninstall_build_deps:
+	@echo "--------------------------------------------------------------------"
+	@echo "Uninstalling pyats-distutils"
+	@pip uninstall cisco-distutils
+ 
 docs:
 	@echo ""
 	@echo "--------------------------------------------------------------------"
 	@echo "Building $(PKG_NAME) documentation for preview: $@"
 	@echo ""
 
-	@./setup.py docs
+	sphinx-build -b html -c docs -d ./__build__/documentation/doctrees docs/ ./__build__/documentation/html
 
 	@echo "Completed building docs for preview."
-	@echo ""
-
+ 
+test:
+	@$(TESTCMD)
+ 
 package:
 	@echo ""
 	@echo "--------------------------------------------------------------------"
 	@echo "Building $(PKG_NAME) distributable: $@"
 	@echo ""
-
-	@./setup.py test
-	@mkdir -p $(DISTDIR)
-
-    # NOTE : Only specify --universal if the package works for both py2 and py3
-    # https://packaging.python.org/en/latest/distributing.html#universal-wheels
-	@./setup.py bdist_wheel --universal --dist-dir=$(DISTDIR)
-
+	
+	$(BUILD_CMD)
+	
+	@echo ""
 	@echo "Completed building: $@"
 	@echo ""
-
+ 
 develop:
 	@echo ""
 	@echo "--------------------------------------------------------------------"
 	@echo "Building and installing $(PKG_NAME) development distributable: $@"
 	@echo ""
-
-	@./setup.py develop --no-deps -q
-
+	
+	@pip install $(DEPENDENCIES)
+	
+	@$(PYTHON) setup.py develop --no-deps
+	
+	@pip install -e ".[dev]"
+	
+	@echo ""
 	@echo "Completed building and installing: $@"
 	@echo ""
-
+ 
 undevelop:
 	@echo ""
 	@echo "--------------------------------------------------------------------"
 	@echo "Uninstalling $(PKG_NAME) development distributable: $@"
 	@echo ""
-
-	@./setup.py develop --no-deps -q --uninstall
-
+	
+	@$(PYTHON) setup.py develop --no-deps -q --uninstall
+	
+	@echo ""
 	@echo "Completed uninstalling: $@"
 	@echo ""
-
+ 
 clean:
 	@echo ""
 	@echo "--------------------------------------------------------------------"
-	@echo "Removing make directory: $(BUILDDIR) ..."
-	@rm -rf $(BUILDDIR)
+	@echo "Removing make directory: $(BUILD_DIR)"
+	@rm -rf $(BUILD_DIR) $(DIST_DIR)
 	@echo ""
 	@echo "Removing build artifacts ..."
-	@./setup.py clean
+	@$(PYTHON) setup.py clean
 	@echo ""
 	@echo "Done."
-
+	@echo ""
+ 
 distribute:
 	@echo ""
 	@echo "--------------------------------------------------------------------"
 	@echo "Copying all distributable to $(PROD_PKGS)"
-	@test -d $(DISTDIR) || { echo "Nothing to distribute! Exiting..."; exit 1; }
-	@ssh -q $(PROD_USER) 'test -e $(PROD_PKGS)/$(PKG_NAME) || mkdir $(PROD_PKGS)/$(PKG_NAME)'
-	@scp $(DISTDIR)/* $(PROD_USER):$(PROD_PKGS)/$(PKG_NAME)
+	@test -d $(DIST_DIR) || { echo "Nothing to distribute! Exiting..."; exit 1; }
+	@ssh -q $(PROD_USER) 'test -e $(PROD_PKGS)/ || mkdir $(PROD_PKGS)'
+	@scp $(DIST_DIR)/* $(PROD_USER):$(PROD_PKGS)/
 	@echo ""
 	@echo "Done."
 	@echo ""

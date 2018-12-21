@@ -10,7 +10,7 @@ class Test_Interact(unittest.TestCase):
     def setUpClass(cls):
         global Interactions
 
-        from webdriver.interact import Interactions
+        from genie.webdriver.interact import Interactions
 
     def setUp(self):
         self.driver = Mock()
@@ -25,7 +25,7 @@ class Test_Interact(unittest.TestCase):
 
         interact = Interactions(driver = self.driver, timeout = 10)
 
-        from webdriver.wait import Wait
+        from genie.webdriver.wait import Wait
         self.assertTrue(isinstance(interact.wait, Wait))
 
     def test_click_on_svg_element(self):

@@ -9,7 +9,7 @@ class Test_Translator(unittest.TestCase):
         global kwarg_to_locator, translate_arguments
         global translate_args_with_passthru
         
-        from webdriver.utils import (
+        from genie.webdriver.utils import (
             kwarg_to_locator, 
             translate_arguments,
             translate_args_with_passthru

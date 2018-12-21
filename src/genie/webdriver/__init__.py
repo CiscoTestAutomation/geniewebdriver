@@ -1,4 +1,7 @@
-__version__ = '1.0.2'
+# metadata
+__version__ = '2.0.0'
+__author__ = 'Cisco Systems Inc.'
+__contact__ = ['pyats-support@cisco.com', 'pyats-support-ext@cisco.com']
 
 from .webpage import WebPage
 
