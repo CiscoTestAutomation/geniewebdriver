@@ -11,7 +11,7 @@ class GoogleSearch(WebPage):
     URL = '/webhp?complete=0'
 
     # define the search box
-    search_box = TextBox(class_ = 'gsfi')
+    search_box = TextBox(class_ = 'gLFyf')
 
     # define the search button
     search_button = Button(name = 'btnK')

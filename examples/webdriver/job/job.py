@@ -16,5 +16,5 @@ SCRIPT_DIR = os.path.dirname(os.path.dirname(__file__))
 def main():
 
     run(testscript = os.path.join(SCRIPT_DIR, 'script.py'),
-        browser = 'chrome',
+        browser = 'firefox',
         base_url = 'http://www.google.com/')

@@ -82,12 +82,12 @@ device object to corresponding web browser driver.
                     executable_path: '/path/to/firefox/geckodriver'
 
                     # optional arguments below
-                    firefox_profile: None
-                    firefox_binary: None
+                    firefox_profile: null
+                    firefox_binary: null
                     timeout: 30
-                    capabilities: None
-                    proxy: None
-                    firefox_options: None
+                    capabilities: null
+                    proxy: null
+                    firefox_options: null
 
         chrome:                             # this is a chrome browser
             type: browser
@@ -98,11 +98,11 @@ device object to corresponding web browser driver.
                     executable_path: /path/to/chromedriver
 
                     # optional arguments below
-                    port: None
-                    chrome_options: None
-                    service_args: None
-                    desired_capabilities: None
-                    service_log_path: None
+                    port: null
+                    chrome_options: null
+                    service_args: null
+                    desired_capabilities: null
+                    service_log_path: null
 
 With the above definition, the testbed loader can then load this YAML into
 object form.
@@ -182,7 +182,7 @@ device instance.
 
         assert 'Google' in driver.title
 
-        elem = driver.find_element_by_class_name('gsfi')
+        elem = driver.find_element_by_class_name('gLFyf')
         
         elem.clear()
         elem.send_keys('Selenium WebDriver')
