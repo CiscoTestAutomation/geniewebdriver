@@ -33,7 +33,7 @@ PKG_NAME      = genie.webdriver
 BUILD_DIR     = $(shell pwd)/__build__
 DIST_DIR      = $(BUILD_DIR)/dist
 PROD_USER     = pyadm@pyats-ci
-PROD_PKGS     = /auto/pyats/packages/cisco-shared/genie
+PROD_PKGS     = /auto/pyats/packages/cisco-shared/webdriver
 PYTHON        = python
 TESTCMD       = ./tests/runAll --path=./tests/
 BUILD_CMD     = $(PYTHON) setup.py bdist_wheel --dist-dir=$(DIST_DIR)
