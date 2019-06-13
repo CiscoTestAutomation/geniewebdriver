@@ -57,8 +57,8 @@ standard to decouple the need to "hard-code" browser connection definitions, and
 abstract out the test library code itself. This is conceptually similar to how
 scripts should be able to run on multiple testbeds with the same topology.
 
-This ``webdriver`` package defines the connector implementation 
-``webdriver.connectors.WebDriverConnector`` required to adapt a pyATS topology 
+This ``genie.webdriver`` package defines the connector implementation
+``genie.webdriver.connectors.WebDriverConnector`` required to adapt a pyATS topology
 device object to corresponding web browser driver.
 
 .. code-block:: yaml
@@ -77,7 +77,7 @@ device object to corresponding web browser driver.
             connections:
                 webdriver:
                     # specify the driver connector class
-                    class: webdriver.connectors.WebDriverConnector
+                    class: genie.webdriver.connectors.WebDriverConnector
                     driver: Firefox
                     executable_path: '/path/to/firefox/geckodriver'
 
@@ -93,7 +93,7 @@ device object to corresponding web browser driver.
             type: browser
             connections:
                 webdriver:
-                    class: webdriver.connectors.WebDriverConnector
+                    class: genie.webdriver.connectors.WebDriverConnector
                     driver: Chrome
                     executable_path: /path/to/chromedriver
 
@@ -138,7 +138,7 @@ object form.
 
     # etc..
 
-In essence, the ``webdriver.connectors.WebDriverConnector`` is a pyATS 
+In essence, the ``genie.webdriver.connectors.WebDriverConnector`` is a pyATS
 `connection class`_ implementation that converts YAML connection specifications
 into an actual Selenium Driver instance. All arguments/options defined under 
 the connection definition is converted into that driver's ``__init__()`` 
