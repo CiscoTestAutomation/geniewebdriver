@@ -270,7 +270,7 @@ class Test_Element(unittest.TestCase):
                 Dummy.wait.until.element_to_be_clickable().click.call_count, 0)
 
     def test_Selector(self):
-        with patch('webdriver.element.Select') as selector_mock:
+        with patch('genie.webdriver.element.Select') as selector_mock:
             class Dummy(Mock):
                 selector = Selector(id = 'abc')
                 wait = Mock()

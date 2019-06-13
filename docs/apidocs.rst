@@ -4,7 +4,7 @@ API Documentation
 WebDriver Connector
 -------------------
 
-.. automodule:: webdriver.connectors
+.. automodule:: genie.webdriver.connectors
     :members:
     :undoc-members:
     :show-inheritance:
@@ -12,7 +12,7 @@ WebDriver Connector
 Page Elements
 -------------
 
-.. automodule:: webdriver.element
+.. automodule:: genie.webdriver.element
     :members:
     :undoc-members:
     :show-inheritance:
@@ -20,7 +20,7 @@ Page Elements
 Interactions
 ------------
 
-.. automodule:: webdriver.interact
+.. automodule:: genie.webdriver.interact
     :members:
     :undoc-members:
     :show-inheritance:
@@ -28,7 +28,7 @@ Interactions
 Waits
 -----
 
-.. automodule:: webdriver.wait
+.. automodule:: genie.webdriver.wait
     :members:
     :undoc-members:
     :show-inheritance:
@@ -36,7 +36,7 @@ Waits
 WebPage
 -------
 
-.. automodule:: webdriver.webpage
+.. automodule:: genie.webdriver.webpage
     :members:
     :undoc-members:
     :show-inheritance:

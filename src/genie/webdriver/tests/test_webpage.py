@@ -15,8 +15,8 @@ class Test_WebPage(unittest.TestCase):
         self.driver = Mock()
 
     def test_init(self):
-        with patch('webdriver.wait.Wait') as wait:
-            with patch('webdriver.interact.Interactions') as interact:
+        with patch('genie.webdriver.wait.Wait') as wait:
+            with patch('genie.webdriver.interact.Interactions') as interact:
                 
                 class TestPage(WebPage):
                     URL = '/lol'
@@ -35,8 +35,8 @@ class Test_WebPage(unittest.TestCase):
                 self.assertEqual(page.urlkwargs, dict(a=1))
 
     def test_subclass_build_url(self):
-        with patch('webdriver.wait.Wait') as wait:
-            with patch('webdriver.interact.Interactions') as interact:
+        with patch('genie.webdriver.wait.Wait') as wait:
+            with patch('genie.webdriver.interact.Interactions') as interact:
                 
                 class TestPage(WebPage):
                     URL = '/lol'
@@ -48,8 +48,8 @@ class Test_WebPage(unittest.TestCase):
                 self.assertEqual(page.url, 'lalalala')
 
     def test_redirect_and_dir(self):
-        with patch('webdriver.wait.Wait') as wait:
-            with patch('webdriver.interact.Interactions') as interact:
+        with patch('genie.webdriver.wait.Wait') as wait:
+            with patch('genie.webdriver.interact.Interactions') as interact:
                 
                 class TestPage(WebPage):
                     URL = '/testpage'
@@ -61,8 +61,8 @@ class Test_WebPage(unittest.TestCase):
                 self.assertTrue(hasattr(page, 'endswith'))
 
     def test_open(self):
-        with patch('webdriver.wait.Wait') as wait:
-            with patch('webdriver.interact.Interactions') as interact:
+        with patch('genie.webdriver.wait.Wait') as wait:
+            with patch('genie.webdriver.interact.Interactions') as interact:
                 
                 class TestPage(WebPage):
                     URL = '/testpage'
@@ -74,8 +74,8 @@ class Test_WebPage(unittest.TestCase):
                 self.driver.get.assert_called_with(page.url)
 
     def test_context_manager(self):
-        with patch('webdriver.wait.Wait') as wait:
-            with patch('webdriver.interact.Interactions') as interact:
+        with patch('genie.webdriver.wait.Wait') as wait:
+            with patch('genie.webdriver.interact.Interactions') as interact:
                 
                 class TestPage(WebPage):
                     URL = '/testpage'
@@ -85,8 +85,8 @@ class Test_WebPage(unittest.TestCase):
                     self.driver.get.assert_called_with(page.url)
 
     def test_find_element(self):
-        with patch('webdriver.wait.Wait') as wait:
-            with patch('webdriver.interact.Interactions') as interact:
+        with patch('genie.webdriver.wait.Wait') as wait:
+            with patch('genie.webdriver.interact.Interactions') as interact:
                 
                 class TestPage(WebPage):
                     URL = '/testpage'
@@ -101,8 +101,8 @@ class Test_WebPage(unittest.TestCase):
                 self.driver.find_element.assert_called_with(1,2)
 
     def test_find_elements(self):
-        with patch('webdriver.wait.Wait') as wait:
-            with patch('webdriver.interact.Interactions') as interact:
+        with patch('genie.webdriver.wait.Wait') as wait:
+            with patch('genie.webdriver.interact.Interactions') as interact:
                 
                 class TestPage(WebPage):
                     URL = '/testpage'

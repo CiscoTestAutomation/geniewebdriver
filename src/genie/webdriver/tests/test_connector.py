@@ -29,10 +29,10 @@ devices:
         type: something
         connections:
             chrome:
-                class: webdriver.connectors.WebDriverConnector
+                class: genie.webdriver.connectors.WebDriverConnector
                 driver: Chrome
 '''
-        with patch('webdriver.connectors.webdriver') as wbd:
+        with patch('genie.webdriver.connectors.webdriver') as wbd:
             tb = topology.loader.load(yaml)
             self.assertEqual(
                 tb.devices['dummy'].connections.chrome['class'].__name__,
@@ -41,7 +41,7 @@ devices:
     def test_init(self):
         class Dummy(): pass
         device = Dummy()
-        with patch('webdriver.connectors.webdriver') as wbd:
+        with patch('genie.webdriver.connectors.webdriver') as wbd:
             conn = WebDriverConnector(device = device, 
                                       alias = 'dummy',
                                       via = 'boom')
@@ -57,11 +57,11 @@ devices:
         device.connections['boom'] = {
             'driver':'Chrome',
             'chrome_options': '111',
-            'class': 'webdriver.connectors.WebDriverConnector',
+            'class': 'genie.webdriver.connectors.WebDriverConnector',
         }
 
 
-        with patch('webdriver.connectors.webdriver') as wbd:
+        with patch('genie.webdriver.connectors.webdriver') as wbd:
             wbd.Chrome().service.process.poll.return_value = None
 
             conn = WebDriverConnector(device = device, 
@@ -81,11 +81,11 @@ devices:
         device.connections['boom'] = {
             'driver':'Chrome',
             'chrome_options': '111',
-            'class': 'webdriver.connectors.WebDriverConnector',
+            'class': 'genie.webdriver.connectors.WebDriverConnector',
         }
 
 
-        with patch('webdriver.connectors.webdriver') as wbd:
+        with patch('genie.webdriver.connectors.webdriver') as wbd:
             wbd.Chrome().service.process.poll.return_value = None
 
             conn = WebDriverConnector(device = device, 
@@ -105,11 +105,11 @@ devices:
         device.connections['boom'] = {
             'driver':'Chrome',
             'chrome_options': '111',
-            'class': 'webdriver.connectors.WebDriverConnector',
+            'class': 'genie.webdriver.connectors.WebDriverConnector',
         }
 
 
-        with patch('webdriver.connectors.webdriver') as wbd:
+        with patch('genie.webdriver.connectors.webdriver') as wbd:
             wbd.Chrome().service.process.poll.return_value = None
 
             conn = WebDriverConnector(device = device, 

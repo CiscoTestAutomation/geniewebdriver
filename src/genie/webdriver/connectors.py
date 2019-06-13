@@ -27,6 +27,9 @@ class WebDriverConnector(BaseConnection):
         # get all connection information
         connection_info = self.connection_info.copy()
 
+        # remove credentials block if present
+        credentials = connection_info.pop('credentials', None)
+
         # rename ip -> host, cast to str type
         try:
             driver = connection_info.pop('driver')

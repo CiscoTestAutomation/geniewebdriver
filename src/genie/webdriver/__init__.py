@@ -1,5 +1,5 @@
 # metadata
-__version__ = '2.0.0'
+__version__ = '19.5.0'
 __author__ = 'Cisco Systems Inc.'
 __contact__ = ['pyats-support@cisco.com', 'pyats-support-ext@cisco.com']
 
