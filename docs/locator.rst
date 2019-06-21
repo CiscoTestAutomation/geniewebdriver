@@ -126,7 +126,7 @@ to the native locator tuple. We call this the **locator kwarg**.
     # -------
     #
     #   using locator kwargs interchageably within this package
-    #   (and using webdriver.wait.Wait() class as example)
+    #   (and using genie.webdriver.wait.Wait() class as example)
 
     # the traditional tuple format is doable
     from selenium.webdriver.common.by import By

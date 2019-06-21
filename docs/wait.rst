@@ -2,25 +2,25 @@ Wait Object
 ===========
 
 To a human user, waiting for web pages to load, for UI interactions to take time
-and watching page animations comes as a natural, subconscious thing: it's part 
-of the overall experience of surfing. 
+and watching page animations comes as a natural, subconscious thing: it's part
+of the overall experience of surfing.
 
 However, in the case of automation, the automation script (Selenium code) can
-run magnitudes faster than the browser loading the actual web page, making 
-locating elements difficult. This is further exacerbated by the use of 
+run magnitudes faster than the browser loading the actual web page, making
+locating elements difficult. This is further exacerbated by the use of
 multi-threaded  loading in different browers, and AJAX techniques within each
 web page implementation.
 
-To properly code this interactive experience using automation, users needs to 
+To properly code this interactive experience using automation, users needs to
 use ``Wait()`` objects: implicitly wait x seconds, or explicitly wait & poll for
-a UI element to become ready. The Selenium Python bindings provides this 
-`wait functionality`_ in a crude fashion. 
+a UI element to become ready. The Selenium Python bindings provides this
+`wait functionality`_ in a crude fashion.
 
 .. _wait functionality: http://selenium-python.readthedocs.io/waits.html
 
 This ``webdriver`` features a higher-level implementation that stream lines this
-experience: ``webdriver.wait.Wait`` class combines Selenium low-level wait apis
-and expected conditions into a single structure, where method calls and 
+experience: ``genie.webdriver.wait.Wait`` class combines Selenium low-level wait apis
+and expected conditions into a single structure, where method calls and
 attribute chains depics what the user wants to do.
 
 .. code-block:: python
@@ -43,7 +43,7 @@ attribute chains depics what the user wants to do.
     from selenium.webdriver.common.by import By
     from selenium.webdriver.support.ui import WebDriverWait
     from selenium.webdriver.support import expected_conditions as EC
-    
+
     element = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.ID, "myDynamicElement"))
         )
@@ -56,11 +56,11 @@ attribute chains depics what the user wants to do.
     wait = Wait(driver, 10)
     element = wait.until.presence_of_element_located(id = 'myDynamicElement')
 
-The ``webdriver.wait.Wait()`` object is instantiated with the following 
+The ``genie.webdriver.wait.Wait()`` object is instantiated with the following
 arguments:
-    
+
 .. code-block:: text
-    
+
     Format
     ------
         Wait(driver, timeout)
@@ -71,8 +71,8 @@ arguments:
         timeout: default timeout for all wait conditions under this instance
 
 .. hint::
-    
-    once a ``Wait()`` object is created, you can keep reusing it. 
+
+    once a ``Wait()`` object is created, you can keep reusing it.
 
 
 Implicit Wait
@@ -82,7 +82,7 @@ An implicit wait simply instructs the driver to poll the DOM for certain amount
 of time.
 
 .. code-block:: python
-    
+
     # Example
     # -------
     #
@@ -97,7 +97,7 @@ of time.
     # wait for 10 seconds
     wait(10)
 
-    # if no timeout value is provided on call, 
+    # if no timeout value is provided on call,
     # it waits for the default amount.
     wait()      # wait 30s
 
@@ -106,7 +106,7 @@ Explicit Waits
 --------------
 
 An explicit wait is a case where the code explicitly polls/waits for a condition
-to occur before moving forward. All current explicit wait and conditions are 
+to occur before moving forward. All current explicit wait and conditions are
 wrapped in ``webdriver.wait.Wait`` class, allowing for shorthand use.
 
 .. code-block:: text
@@ -127,12 +127,12 @@ wrapped in ``webdriver.wait.Wait`` class, allowing for shorthand use.
         [message]: message to display/throw if condition is not met
         [poll_frequency]: sleep interval between polls, default to 0.5s
         [ignored_exceptions]: iterable structure of exception classes ignored during
-                              calls. By default, it contains NoSuchElementException 
+                              calls. By default, it contains NoSuchElementException
                               only.
 
 
 .. code-block:: python
-    
+
     # Example
     # -------
     #
@@ -149,7 +149,7 @@ wrapped in ``webdriver.wait.Wait`` class, allowing for shorthand use.
     # eg, equivalent to raw selenium
     #   WebDriverWait(driver, 10).until(EC.title_is('my title page'))
     wait.until.title_is('my title page')
-    
+
     # wait until title is no longer "my title page"
     # (in addition, poll every 1 second for 30s, with specific error message)
     # eg, equivalent to raw selenium
@@ -173,7 +173,7 @@ mechanism as attribute chains.
 - ``Wait().until_not`` is the inverse of above.
 
 The following is the list of available condition methods to be used with the
-above. Note that the optional arguments ``timeout``, ``poll_frequency``, 
+above. Note that the optional arguments ``timeout``, ``poll_frequency``,
 ``message`` and ``ignored_exceptions`` are not shown in the api input for
 simplicity - they are applicable/useable as optional kwargs in all of them.
 
@@ -200,7 +200,7 @@ simplicity - they are applicable/useable as optional kwargs in all of them.
     web page. Returns list of element found
 
 ``.visibility_of_any_elements_located(locator)``
-    An expectation for checking that there is at least one element visible on 
+    An expectation for checking that there is at least one element visible on
     a web page. Returns list of element found
 
 ``.text_to_be_present_in_element(text, locator)``
@@ -208,7 +208,7 @@ simplicity - they are applicable/useable as optional kwargs in all of them.
     specified element (described by locator).
 
 ``.text_to_be_present_in_element_value(text, locator)``
-    An expectation for checking if the given text is present in the element's 
+    An expectation for checking if the given text is present in the element's
     value (element specified by locator)
 
 ``.frame_to_be_available_and_switch_to_it(locator)``
@@ -217,12 +217,12 @@ simplicity - they are applicable/useable as optional kwargs in all of them.
     specified frame.
 
 ``.invisibility_of_element_located(locator)``
-    An Expectation for checking that an element is either invisible 
+    An Expectation for checking that an element is either invisible
     or not present on the DOM.
 
 ``.element_to_be_clickable(locator)``
-    An expectation for checking an element (described by locator) is visible 
-    and enabled such that you can click it. 
+    An expectation for checking an element (described by locator) is visible
+    and enabled such that you can click it.
 
 ``.staleness_of(element)``
     Condition where an element is no longer attached to the DOM.
@@ -238,7 +238,7 @@ simplicity - they are applicable/useable as optional kwargs in all of them.
     state
 
 ``.element_located_selection_state_to_be(locator, state)``
-    An expectation for checking if the given element (described by locator) is 
+    An expectation for checking if the given element (described by locator) is
     of the provided selected state
 
 ``.number_of_windows_to_be(num_windows)``

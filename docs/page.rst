@@ -244,32 +244,32 @@ top and add more functionality.
 
 This page includes the following subclasses for intuitive use:
 
-``webdriver.element.TextBox(locator or value)``
+``genie.webdriver.element.TextBox(locator or value)``
     defines a text box input element using locator, locator kwargs, or a value.
     If value is provided, uses the predefined XPATH search pattern: 
     ``.//input[@type='text' and @value='{value}']`` to locate element. 
     ``GET`` returns the current text box value, and ``SET`` automatically types 
     text into the box. 
 
-``webdriver.element.Button(locator)``
+``genie.webdriver.element.Button(locator)``
     defines a button element using locator or locator kwargs.
     ``GET`` returns the element object when the button becomes "clickable"
 
-``webdriver.element.RadioButton(locator or value)``
+``genie.webdriver.element.RadioButton(locator or value)``
     defines a radio button input element using locator, locator kwargs, or a 
     value. If value is provided, uses the predefined XPATH search pattern: 
     ``.//input[@type='radio' and @value='{value}']`` to locate element. 
     ``GET`` returns the current radio button state (true for selected, false 
     not), and ``SET`` accepts true/false value to set/unset the radio button.
 
-``webdriver.element.Checkbox(locator or value)``
+``genie.webdriver.element.Checkbox(locator or value)``
     defines a checkbox input element using locator, locator kwargs, or a 
     value. If value is provided, uses the predefined XPATH search pattern: 
     ``.//input[@type='checkbox' and @value='{value}']`` to locate element. 
     ``GET`` returns the current checkbox value (true for selected, false not), 
     and ``SET`` accepts true/false value to check/uncheck the box.
 
-``webdriver.element.Selector(locator)``
+``genie.webdriver.element.Selector(locator)``
     defines a drop down selector using locator or locator kwargs. ``SET``
     returns a ``selenium.webdriver.support.ui.Select`` object instance.
 
