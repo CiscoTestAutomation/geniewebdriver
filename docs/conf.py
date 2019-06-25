@@ -50,8 +50,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Cisco-Shared (pyATS)'
-copyright = '2014-2016, ATS-ASG Team, Cisco Internal Confidential'
+project = 'Genie Webdriver'
+copyright = 'Cisco Systems Inc.'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -124,10 +124,10 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
-html_title = 'pyATS Cisco-Shared Documentation'
+html_title = 'Genie Webdriver Documentation'
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
-html_short_title = 'Cisco-Shared doc'
+html_short_title = 'Genie Webdriver Documentation'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
@@ -193,7 +193,7 @@ autoclass_content = 'both'
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'pyATSdoc'
+htmlhelp_basename = 'docs'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -243,8 +243,6 @@ htmlhelp_basename = 'pyATSdoc'
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'Cisco-Shared(pyats)', 'Cisco-Shared Documentation',
-     ['ATS-ASG Team'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -257,9 +255,6 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Cisco-Shared(pyats)', 'Cisco-Shared Documentation',
-   'ATS-ASG Team', 'One line description of project.',
-   'Miscellaneous'),
 ]
 
 # Documents to append as an appendix to all manuals.

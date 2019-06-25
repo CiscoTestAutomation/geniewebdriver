@@ -18,6 +18,4 @@ to connect to web browsers through Selenium using the topology/YAML format.
     apidocs
     changelog/index
 
-.. sectionauthor:: Siming Yuan <siyuan@cisco.com>
-
 .. _selenium: http://selenium-python.readthedocs.io/

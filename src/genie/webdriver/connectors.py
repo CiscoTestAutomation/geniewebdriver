@@ -1,7 +1,7 @@
 
 from selenium import webdriver
 
-from ats.connections import BaseConnection
+from pyats.connections import BaseConnection
 
 
 class WebDriverConnector(BaseConnection):

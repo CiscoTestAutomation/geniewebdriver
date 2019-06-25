@@ -1,4 +1,4 @@
-from ats import aetest
+from pyats import aetest
 
 from libs import google
 
