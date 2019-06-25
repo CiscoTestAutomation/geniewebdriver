@@ -8,7 +8,7 @@ Run this job file using"
 
 import os
 
-from ats.easypy import run
+from pyats.easypy import run
 
 SCRIPT_DIR = os.path.dirname(os.path.dirname(__file__))
 

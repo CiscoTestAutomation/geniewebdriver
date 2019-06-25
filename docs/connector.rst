@@ -115,7 +115,7 @@ object form.
     #   loading & using selenium testbed yaml file in pyATS and 
 
     # import the topology module
-    from ats import topology
+    from pyats import topology
 
     # load the above testbed file containing selenium drivers
     testbed = topology.loader.load('/path/to/selenium/testbed.yaml')
@@ -164,7 +164,7 @@ device instance.
         #   using connector object with straight selenium objects
 
         # import the topology module
-        from ats import topology
+        from pyats import topology
 
         # load testbed, connect
         testbed = topology.loader.load('/path/to/selenium/testbed.yaml')

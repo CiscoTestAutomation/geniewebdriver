@@ -2,12 +2,12 @@ import unittest
 from unittest.mock import patch, Mock, MagicMock
 
 try:
-    from ats import topology
+    from pyats import topology
 except ImportError:
     topology = None
 
 try:
-    from ats import connections
+    from pyats import connections
 
 except ImportError:
     connections = None

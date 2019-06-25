@@ -106,23 +106,12 @@ on how to properly setup/use selenium.
 Installation & Examples
 -----------------------
 
-This package is featured on the pyATS Cisco internal PyPI server. To install in
-regular pyATS environments, simply do the following in your environment:
+This package is featured on the public PyPI server. To install in, simply do the
+following:
 
 .. code-block:: bash
 
     pip install genie.webdriver
-
-This package also works outside of pyATS. If you want to leverage this package 
-in any other straight-up Python environment, try the following:
-
-.. code-block:: bash
-
-    pip install --index-url http://pyats-pypi.cisco.com/simple webdriver
-
-.. note::
-
-    Only for Internal Cisco user, otherwise just do a normal pip install
 
 This package wraps core functionality from `Selenium Python Bindings` package. 
 As such, on installation, it will also install ``selenium`` package from Python
