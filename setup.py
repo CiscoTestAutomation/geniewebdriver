@@ -8,24 +8,24 @@ See:
 
 import os
 import re
-import sys
 
-from ciscodistutils import setup, find_packages, is_devnet_build
-from ciscodistutils.tools import read, find_version, generate_cython_modules
-from ciscodistutils.common import SUPPORT, LICENSE, URL
-from ciscodistutils.common import (AUTHOR,
-                                   URL,
-                                   CLASSIFIERS,
-                                   SUPPORT,
-                                   LICENSE,
-                                   STD_EXTRA_REQ)
-
-
-
+from setuptools import setup, find_packages
 
 # generate package dependencies
 install_requires = ['selenium']
 
+def read(*paths):
+    '''read and return txt content of file'''
+    with open(os.path.join(*paths)) as fp:
+        return fp.read()
+
+def find_version(*paths):
+    '''reads a file and returns the defined __version__ value'''
+    version_match = re.search(r"^__version__ ?= ?['\"]([^'\"]*)['\"]",
+                              read(*paths), re.M)
+    if version_match:
+        return version_match.group(1)
+    raise RuntimeError("Unable to find version string.")
 
 # launch setup
 setup(
@@ -39,17 +39,37 @@ setup(
     long_description = read('DESCRIPTION.rst'),
 
     # the project's main homepage.
-    url = URL,
+    url = 'https://developer.cisco.com/pyats/',
 
     # author details
-    author = AUTHOR,
-    author_email = SUPPORT,
+    author = 'Cisco Systems Inc.',
+    author_email = 'pyats-support-ext@cisco.com',
 
     # project licensing
-    license = LICENSE,
+    license = 'Apache 2.0',
 
     # see https://pypi.python.org/pypi?%3Aaction=list_classifiers
-    classifiers=CLASSIFIERS,
+    classifiers=[
+        'Development Status :: 6 - Mature',
+        'Development Status :: 5 - Production/Stable',
+        'Environment :: Console',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Telecommunications Industry',
+        'Intended Audience :: Information Technology',
+        'Intended Audience :: System Administrators',
+        'License :: OSI Approved :: Apache Software License',
+        'Operating System :: MacOS',
+        'Operating System :: POSIX :: Linux',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3 :: Only',
+        'Programming Language :: Python :: Implementation :: CPython',
+        'Topic :: Software Development :: Testing',
+        'Topic :: Software Development :: Build Tools',
+        'Topic :: Software Development :: Libraries',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+    ],
 
     # project keywords
     keywords = 'genie pyats test automation webdriver',
@@ -79,7 +99,10 @@ setup(
 
     # any additional groups of dependencies.
     # install using: $ pip install -e .[dev]
-    extras_require = STD_EXTRA_REQ,
+    extras_require = {
+        'dev': ['Sphinx', 
+                'sphinx-rtd-theme'],
+    },
 
     # external modules
     ext_modules = [],

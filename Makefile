@@ -41,7 +41,7 @@ PYPIREPO      = pypitest
 
 # Development pkg requirements
 DEPENDENCIES  = restview psutil Sphinx wheel asynctest
-DEPENDENCIES += setproctitle sphinxcontrib-napoleon sphinx-rtd-theme httplib2
+DEPENDENCIES += setproctitle sphinx-rtd-theme
 DEPENDENCIES += pip-tools
 
 .PHONY: clean package distribute develop undevelop help devnet\
