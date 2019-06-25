@@ -32,8 +32,6 @@
 PKG_NAME      = genie.webdriver
 BUILD_DIR     = $(shell pwd)/__build__
 DIST_DIR      = $(BUILD_DIR)/dist
-PROD_USER     = pyadm@pyats-ci
-PROD_PKGS     = /auto/pyats/packages/cisco-shared/webdriver
 PYTHON        = python
 TESTCMD       = ./tests/runAll --path=./tests/
 BUILD_CMD     = $(PYTHON) setup.py bdist_wheel --dist-dir=$(DIST_DIR)
@@ -57,28 +55,7 @@ help:
 	@echo "develop               Build and install development package"
 	@echo "undevelop             Uninstall development package"
 	@echo "docs                  Build Sphinx documentation for this package"
-	@echo "devnet                Build DevNet package."
-	@echo "install_build_deps    install pyats-distutils"
-	@echo "uninstall_build_deps  remove pyats-distutils"
-	@echo ""
-	@echo "     --- build arguments ---"
-	@echo " DEVNET=true              build for devnet style"
 
-devnet: package
-	@echo "Completed building DevNet packages"
-	@echo ""
-
-install_build_deps:
-	@echo "--------------------------------------------------------------------"
-	@echo "Installing cisco-distutils"
-	@pip install --index-url=http://pyats-pypi.cisco.com/simple \
-	             --trusted-host=pyats-pypi.cisco.com \
-	             cisco-distutils
- 
-uninstall_build_deps:
-	@echo "--------------------------------------------------------------------"
-	@echo "Uninstalling pyats-distutils"
-	@pip uninstall cisco-distutils
  
 docs:
 	@echo ""
@@ -86,7 +63,7 @@ docs:
 	@echo "Building $(PKG_NAME) documentation for preview: $@"
 	@echo ""
 
-	sphinx-build -b html -c docs -d ./__build__/documentation/doctrees docs/ ./__build__/documentation/html
+	sphinx-build -M html docs/ $(BUILD_DIR)/documentation
 
 	@echo "Completed building docs for preview."
  
@@ -145,13 +122,3 @@ clean:
 	@echo "Done."
 	@echo ""
  
-distribute:
-	@echo ""
-	@echo "--------------------------------------------------------------------"
-	@echo "Copying all distributable to $(PROD_PKGS)"
-	@test -d $(DIST_DIR) || { echo "Nothing to distribute! Exiting..."; exit 1; }
-	@ssh -q $(PROD_USER) 'test -e $(PROD_PKGS)/ || mkdir $(PROD_PKGS)'
-	@scp $(DIST_DIR)/* $(PROD_USER):$(PROD_PKGS)/
-	@echo ""
-	@echo "Done."
-	@echo ""
