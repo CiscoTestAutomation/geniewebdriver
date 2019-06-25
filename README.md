@@ -6,9 +6,7 @@ and standardize how automation engineers develop Selenium based libraries.
 Also includes a pyATS connection class implementation that allows pyATS scripts 
 to connect to web browsers through Selenium using the topology/YAML format.
 
-This package is open sourced to `Cisco DevNet`_ in Juen 2019.
-
-[Cisco DevNet]: https://developer.cisco.com/
+This package is open sourced to [Cisco DevNet](https://developer.cisco.com/) in June 2019.
 
 This is a sub-component of Genie that parses the device output into structured
 datastructure.
