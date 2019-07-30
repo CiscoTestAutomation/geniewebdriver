@@ -56,7 +56,8 @@ help:
 	@echo "undevelop             Uninstall development package"
 	@echo "docs                  Build Sphinx documentation for this package"
 
- 
+html: docs
+
 docs:
 	@echo ""
 	@echo "--------------------------------------------------------------------"
