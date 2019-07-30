@@ -69,6 +69,12 @@ docs:
  
 test:
 	@$(TESTCMD)
+
+install_build_deps:
+	@echo "no op"
+ 
+uninstall_build_deps:
+	@echo "no op"
  
 package:
 	@echo ""
