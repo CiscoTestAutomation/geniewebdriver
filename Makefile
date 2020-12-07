@@ -88,6 +88,8 @@ package:
 	@echo ""
 	@echo "Completed building: $@"
 	@echo ""
+	@echo "Done."
+	@echo ""
  
 develop:
 	@echo ""
@@ -104,6 +106,8 @@ develop:
 	@echo ""
 	@echo "Completed building and installing: $@"
 	@echo ""
+	@echo "Done."
+	@echo ""
  
 undevelop:
 	@echo ""
@@ -115,6 +119,8 @@ undevelop:
 	
 	@echo ""
 	@echo "Completed uninstalling: $@"
+	@echo ""
+	@echo "Done."
 	@echo ""
  
 clean:
