@@ -42,8 +42,12 @@ DEPENDENCIES  = restview psutil Sphinx wheel asynctest
 DEPENDENCIES += setproctitle sphinx-rtd-theme
 DEPENDENCIES += pip-tools
 
+# Dependencies for building documentation
+DOCS_DEPENDENCIES = Sphinx sphinxcontrib-napoleon sphinxcontrib-mockautodoc sphinx-rtd-theme
+
+
 .PHONY: clean package distribute develop undevelop help devnet\
-        docs test install_build_deps uninstall_build_deps
+        docs test install_build_deps uninstall_build_deps install_build_deps
 
 help:
 	@echo "Please use 'make <target>' where <target> is one of"
@@ -55,6 +59,8 @@ help:
 	@echo "develop               Build and install development package"
 	@echo "undevelop             Uninstall development package"
 	@echo "docs                  Build Sphinx documentation for this package"
+	@echo "install_build_deps:     Install build dependencies for docs (will be run in make docs)"
+
 
 html: docs
 
@@ -76,6 +82,13 @@ install_build_deps:
  
 uninstall_build_deps:
 	@echo "no op"
+
+install_build_deps:
+	@echo "Installing build dependecies into your environment"
+	@pip install $(DOCS_DEPENDENCIES)
+	@echo ""
+	@echo "Done"
+
  
 package:
 	@echo ""
