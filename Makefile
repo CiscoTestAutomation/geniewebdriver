@@ -37,6 +37,7 @@ PYTHON        = python
 TESTCMD       = ./tests/runAll --path=./tests/
 BUILD_CMD     = $(PYTHON) setup.py bdist_wheel --dist-dir=$(DIST_DIR)
 PYPIREPO      = pypitest
+PROD_USER     = pyadm@pyats-ci
 
 # Development pkg requirements
 DEPENDENCIES  = restview psutil Sphinx wheel asynctest
@@ -79,9 +80,6 @@ docs:
 
 test:
 	@$(TESTCMD)
-
-install_build_deps:
-	@echo "no op"
 
 uninstall_build_deps:
 	@echo "no op"
