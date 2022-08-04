@@ -45,6 +45,13 @@ class WebDriverConnector(BaseConnection):
         # remove class
         connection_info.pop('class')
 
+        # check if 'service' and 'options' is passed to connect()
+        # if passed, add to connection_info
+        if hasattr(self, 'service'):
+            connection_info['service'] = self.service
+        if hasattr(self, 'options'):
+            connection_info['options'] = self.options
+
         # create class
         self.driver = driver(**connection_info)
 
