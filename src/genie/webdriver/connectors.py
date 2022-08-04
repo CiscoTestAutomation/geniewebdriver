@@ -1,4 +1,6 @@
 
+from importlib import import_module
+
 from selenium import webdriver
 
 from pyats.connections import BaseConnection
@@ -32,8 +34,8 @@ class WebDriverConnector(BaseConnection):
 
         # rename ip -> host, cast to str type
         try:
-            driver = connection_info.pop('driver')
-            driver = getattr(webdriver, driver)
+            driver_name = connection_info.pop('driver')
+            driver = getattr(webdriver, driver_name)
 
         except KeyError:
             raise ValueError('Missing driver: definition in YAML connection '
@@ -51,6 +53,14 @@ class WebDriverConnector(BaseConnection):
             connection_info['service'] = self.service
         if hasattr(self, 'options'):
             connection_info['options'] = self.options
+        elif 'options' in connection_info:
+            # derive 'options' from testbed yaml
+            connection_options = connection_info.pop('options')
+            options = import_module(f"selenium.webdriver.{driver_name.lower()}.options")
+            connect_options = options.Options()
+            for k, v in connection_options.items():
+                setattr(connect_options, k, v)
+            connection_info['options'] = connect_options
 
         # create class
         self.driver = driver(**connection_info)
