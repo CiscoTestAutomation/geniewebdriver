@@ -1,6 +1,8 @@
 import unittest
 from unittest.mock import patch, Mock, MagicMock
 
+from selenium.webdriver.chrome.options import Options
+
 try:
     from pyats import topology
 except ImportError:
@@ -70,6 +72,69 @@ devices:
 
             conn.connect()
             wbd.Chrome.assert_called_with(chrome_options='111')
+            self.assertTrue(isinstance(conn.driver, MagicMock))
+            self.assertIs(conn.connected, True)
+
+    def test_connect_via_arguments(self):
+        class Dummy():
+            pass
+
+        device = Dummy()
+        device.connections = {
+            'boom': {
+                'driver': 'Chrome',
+                'class': 'genie.webdriver.connectors.WebDriverConnector'
+            }
+        }
+
+        with patch('genie.webdriver.connectors.webdriver') as wbd:
+            wbd.Chrome().service.process.poll.return_value = None
+
+            option = Options()
+            option.binary_location = '/Applications/Google Chrome Beta.app/Contents/MacOS/Google Chrome Beta'
+
+            conn = WebDriverConnector(device=device,
+                                      alias='dummy',
+                                      via='boom',
+                                      options=option)
+
+            conn.connect()
+            wbd.Chrome.assert_called_with(options=option)
+            self.assertIs(conn.options, option)
+            self.assertTrue(isinstance(conn.driver, MagicMock))
+            self.assertIs(conn.connected, True)
+
+    def test_connect_via_connections(self):
+        class Dummy():
+            pass
+
+        device = Dummy()
+        device.connections = {
+            'boom': {
+                'driver': 'Chrome',
+                'class': 'genie.webdriver.connectors.WebDriverConnector',
+                'options': {
+                    'binary_location':
+                    '/Applications/Google Chrome Beta.app/Contents/MacOS/Google Chrome Beta'
+                }
+            }
+        }
+
+        with patch('genie.webdriver.connectors.webdriver') as wbd:
+            wbd.Chrome().service.process.poll.return_value = None
+
+            option = Options()
+            option.binary_location = device.connections['boom']['options'][
+                'binary_location']
+
+            conn = WebDriverConnector(device=device,
+                                      alias='dummy',
+                                      via='boom',
+                                      options=option)
+
+            conn.connect()
+            wbd.Chrome.assert_called_with(options=option)
+            self.assertIs(conn.options, option)
             self.assertTrue(isinstance(conn.driver, MagicMock))
             self.assertIs(conn.connected, True)
 
