@@ -1,6 +1,8 @@
 import unittest
 from unittest.mock import patch, Mock, MagicMock
 
+from selenium.webdriver.chrome.options import Options
+
 try:
     from pyats import topology
 except ImportError:
@@ -12,9 +14,9 @@ try:
 except ImportError:
     connections = None
 
+
 @unittest.skipIf(connections is None, "missing connections module")
 class Test_WebDriverConnector(unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
         global WebDriverConnector
@@ -39,82 +41,139 @@ devices:
                 'WebDriverConnector')
 
     def test_init(self):
-        class Dummy(): pass
+        class Dummy():
+            pass
+
         device = Dummy()
         with patch('genie.webdriver.connectors.webdriver') as wbd:
-            conn = WebDriverConnector(device = device, 
-                                      alias = 'dummy',
-                                      via = 'boom')
+            conn = WebDriverConnector(device=device, alias='dummy', via='boom')
 
             self.assertEqual(conn.driver, None)
             self.assertEqual(conn.alias, 'dummy')
             self.assertEqual(conn.via, 'boom')
 
     def test_connect(self):
-        class Dummy(): pass
-        device = Dummy()
-        device.connections = dict()
-        device.connections['boom'] = {
-            'driver':'Chrome',
-            'chrome_options': '111',
-            'class': 'genie.webdriver.connectors.WebDriverConnector',
-        }
+        class Dummy():
+            pass
 
+        device = Dummy()
+        device.connections = {
+            'boom': {
+                'driver': 'Chrome',
+                'chrome_options': '111',
+                'class': 'genie.webdriver.connectors.WebDriverConnector'
+            }
+        }
 
         with patch('genie.webdriver.connectors.webdriver') as wbd:
             wbd.Chrome().service.process.poll.return_value = None
 
-            conn = WebDriverConnector(device = device, 
-                                      alias = 'dummy',
-                                      via = 'boom')
-
+            conn = WebDriverConnector(device=device, alias='dummy', via='boom')
 
             conn.connect()
-            wbd.Chrome.assert_called_with(chrome_options = '111')
+            wbd.Chrome.assert_called_with(chrome_options='111')
+            self.assertTrue(isinstance(conn.driver, MagicMock))
+            self.assertIs(conn.connected, True)
+
+    def test_connect_via_arguments(self):
+        class Dummy():
+            pass
+
+        device = Dummy()
+        device.connections = {
+            'boom': {
+                'driver': 'Chrome',
+                'class': 'genie.webdriver.connectors.WebDriverConnector'
+            }
+        }
+
+        with patch('genie.webdriver.connectors.webdriver') as wbd:
+            wbd.Chrome().service.process.poll.return_value = None
+
+            option = Options()
+            option.binary_location = '/Applications/Google Chrome Beta.app/Contents/MacOS/Google Chrome Beta'
+
+            conn = WebDriverConnector(device=device,
+                                      alias='dummy',
+                                      via='boom',
+                                      options=option)
+
+            conn.connect()
+            wbd.Chrome.assert_called_with(options=option)
+            self.assertIs(conn.options, option)
+            self.assertTrue(isinstance(conn.driver, MagicMock))
+            self.assertIs(conn.connected, True)
+
+    def test_connect_via_connections(self):
+        class Dummy():
+            pass
+
+        device = Dummy()
+        device.connections = {
+            'boom': {
+                'driver': 'Chrome',
+                'class': 'genie.webdriver.connectors.WebDriverConnector',
+                'options': {
+                    'binary_location':
+                    '/Applications/Google Chrome Beta.app/Contents/MacOS/Google Chrome Beta'
+                }
+            }
+        }
+
+        with patch('genie.webdriver.connectors.webdriver') as wbd:
+            wbd.Chrome().service.process.poll.return_value = None
+
+            option = Options()
+            option.binary_location = device.connections['boom']['options'][
+                'binary_location']
+
+            conn = WebDriverConnector(device=device,
+                                      alias='dummy',
+                                      via='boom',
+                                      options=option)
+
+            conn.connect()
+            wbd.Chrome.assert_called_with(options=option)
+            self.assertIs(conn.options, option)
             self.assertTrue(isinstance(conn.driver, MagicMock))
             self.assertIs(conn.connected, True)
 
     def test_argument_chain(self):
-        class Dummy(): pass
-        device = Dummy()
-        device.connections = dict()
-        device.connections['boom'] = {
-            'driver':'Chrome',
-            'chrome_options': '111',
-            'class': 'genie.webdriver.connectors.WebDriverConnector',
-        }
+        class Dummy:
+            pass
 
+        device = Dummy()
+        device.connections = {
+            'boom': {
+                'driver': 'Chrome',
+                'chrome_options': '111',
+                'class': 'genie.webdriver.connectors.WebDriverConnector'
+            }
+        }
 
         with patch('genie.webdriver.connectors.webdriver') as wbd:
             wbd.Chrome().service.process.poll.return_value = None
-
-            conn = WebDriverConnector(device = device, 
-                                      alias = 'dummy',
-                                      via = 'boom')
-
-
+            conn = WebDriverConnector(device=device, alias='dummy', via='boom')
             conn.connect()
             self.assertEqual(conn.execute, conn.driver.execute)
-            self.assertEqual(conn.assert_called_with, 
+            self.assertEqual(conn.assert_called_with,
                              conn.driver.assert_called_with)
 
     def test_configure(self):
-        class Dummy(): pass
-        device = Dummy()
-        device.connections = dict()
-        device.connections['boom'] = {
-            'driver':'Chrome',
-            'chrome_options': '111',
-            'class': 'genie.webdriver.connectors.WebDriverConnector',
-        }
+        class Dummy:
+            pass
 
+        device = Dummy()
+        device.connections = {
+            'boom': {
+                'driver': 'Chrome',
+                'chrome_options': '111',
+                'class': 'genie.webdriver.connectors.WebDriverConnector'
+            }
+        }
 
         with patch('genie.webdriver.connectors.webdriver') as wbd:
             wbd.Chrome().service.process.poll.return_value = None
-
-            conn = WebDriverConnector(device = device, 
-                                      alias = 'dummy',
-                                      via = 'boom')
-
+            conn = WebDriverConnector(device=device, alias='dummy', via='boom')
             with self.assertRaises(RuntimeError):
                 conn.configure('blah')

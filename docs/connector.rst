@@ -191,6 +191,36 @@ device instance.
         # remember to call disconnect() instead of close()
         driver.disconnect()
 
+Options can be passed via testbed yaml like below:
+
+.. code-block:: yaml
+
+    devices:
+        chrome:                             # this is a chrome browser
+            type: browser
+            connections:
+                webdriver:
+                    class: genie.webdriver.connectors.WebDriverConnector
+                    driver: Chrome
+                    options:
+                        binary_location: '/Applications/Google Chrome Beta.app/Contents/MacOS/Google Chrome Beta'
+                        headless: True
+
+The same can be done by passing objects to device.connect() like below. This example passes both service and options.
+
+.. code-block:: python
+
+    from selenium.webdriver.chrome.service import Service
+    from selenium.webdriver.chrome.options import Options
+    from webdriver_manager.chrome import ChromeDriverManager
+    
+    option = Options()
+    option.binary_location='/Applications/Google Chrome Beta.app/Contents/MacOS/Google Chrome Beta'
+    
+    service=Service(ChromeDriverManager(version='104.0.5112.20').install())
+    
+    device.connect(service=service, options=option)
+
 .. _topology: http://wwwin-pyats.cisco.com/documentation/latest/topology/index.html
 
 .. _connection class: http://wwwin-pyats.cisco.com/documentation/latest/connections/class.html
