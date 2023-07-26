@@ -25,8 +25,6 @@ June 27th, 2023
 
 - No changes
 
-Changelog
-=========
 
 May 30th, 2023
 ------------------
@@ -39,8 +37,6 @@ May 30th, 2023
 
 - No changes
 
-Changelog
-=========
 
 April 25th, 2023
 ------------------
@@ -53,8 +49,6 @@ April 25th, 2023
 
 - No changes
 
-Changelog
-=========
 
 March 28th, 2023
 ------------------
