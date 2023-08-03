@@ -114,7 +114,7 @@ develop:
 	@echo "Building and installing $(PKG_NAME) development distributable: $@"
 	@echo ""
 	
-	pip install $(DEPENDENCIES);
+	@pip install $(DEPENDENCIES);
 
 	@$(PYTHON) setup.py develop --no-deps -q
 
