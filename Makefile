@@ -114,9 +114,7 @@ develop:
 	@echo "Building and installing $(PKG_NAME) development distributable: $@"
 	@echo ""
 	
-	@if ! [ $BINOS_ATESTS ]; \
-		then pip install $(DEPENDENCIES); \
-	fi
+	pip install $(DEPENDENCIES);
 
 	@$(PYTHON) setup.py develop --no-deps -q
 
