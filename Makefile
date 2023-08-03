@@ -34,7 +34,7 @@ BUILD_DIR     = $(shell pwd)/__build__
 DIST_DIR      = $(BUILD_DIR)/dist
 STAGING_PKGS  = /auto/pyats/staging/packages
 STAGING_EXT_PKGS  = /auto/pyats/staging/packages_external
-PYTHON        = python
+PYTHON        = python3
 TESTCMD       = ./tests/runAll --path=./tests/
 BUILD_CMD     = $(PYTHON) setup.py bdist_wheel --dist-dir=$(DIST_DIR)
 PYPIREPO      = pypitest
@@ -46,7 +46,8 @@ DEPENDENCIES += setproctitle sphinx-rtd-theme
 DEPENDENCIES += pip-tools
 
 # Dependencies for building documentation
-DOCS_DEPENDENCIES = Sphinx sphinxcontrib-napoleon sphinxcontrib-mockautodoc sphinx-rtd-theme
+# pinning sphinx as it creates dependancy issues with jinja2 and markupsafe
+DOCS_DEPENDENCIES = Sphinx==5.0.0 sphinxcontrib-napoleon sphinxcontrib-mockautodoc sphinx-rtd-theme
 
 
 .PHONY: clean package distribute develop undevelop help devnet\
@@ -112,10 +113,12 @@ develop:
 	@echo "--------------------------------------------------------------------"
 	@echo "Building and installing $(PKG_NAME) development distributable: $@"
 	@echo ""
+	
+	@if ! [ $BINOS_ATESTS ]; \
+		then pip install $(DEPENDENCIES); \
+	fi
 
-	@pip install $(DEPENDENCIES)
-
-	@$(PYTHON) setup.py develop --no-deps
+	@$(PYTHON) setup.py develop --no-deps -q
 
 	@pip install -e ".[dev]"
 
