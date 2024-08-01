@@ -74,9 +74,6 @@ setup(
     # project keywords
     keywords = 'genie pyats test automation webdriver',
 
-    # uses namespace package
-    namespace_packages = ['genie'],
-
     # project packages
     packages = find_packages(where = 'src'),
 
