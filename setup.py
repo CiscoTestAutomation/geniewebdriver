@@ -9,7 +9,7 @@ See:
 import os
 import re
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 
 # generate package dependencies
 install_requires = ['selenium']
@@ -75,7 +75,7 @@ setup(
     keywords = 'genie pyats test automation webdriver',
 
     # project packages
-    packages = find_packages(where = 'src'),
+    packages = find_namespace_packages(where = 'src'),
 
     # project directory
     package_dir = {
