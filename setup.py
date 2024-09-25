@@ -9,15 +9,17 @@ See:
 import os
 import re
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 
 # generate package dependencies
 install_requires = ['selenium']
+
 
 def read(*paths):
     '''read and return txt content of file'''
     with open(os.path.join(*paths)) as fp:
         return fp.read()
+
 
 def find_version(*paths):
     '''reads a file and returns the defined __version__ value'''
@@ -27,26 +29,27 @@ def find_version(*paths):
         return version_match.group(1)
     raise RuntimeError("Unable to find version string.")
 
+
 # launch setup
 setup(
-    name = 'genie.webdriver',
-    version = find_version('src', 'genie', 'webdriver', '__init__.py'),
+    name='genie.webdriver',
+    version=find_version('src', 'genie', 'webdriver', '__init__.py'),
 
     # descriptions
-    description = 'A collection of tools and base classes intended to '
-                  'simplify and standardize how automation engineers '
-                  'develop Selenium based libraries',
-    long_description = read('DESCRIPTION.rst'),
+    description='A collection of tools and base classes intended to '
+                'simplify and standardize how automation engineers '
+                'develop Selenium based libraries',
+    long_description=read('DESCRIPTION.rst'),
 
     # the project's main homepage.
-    url = 'https://developer.cisco.com/pyats/',
+    url='https://developer.cisco.com/pyats/',
 
     # author details
-    author = 'Cisco Systems Inc.',
-    author_email = 'pyats-support-ext@cisco.com',
+    author='Cisco Systems Inc.',
+    author_email='pyats-support-ext@cisco.com',
 
     # project licensing
-    license = 'Apache 2.0',
+    license='Apache 2.0',
 
     # see https://pypi.python.org/pypi?%3Aaction=list_classifiers
     classifiers=[
@@ -72,45 +75,45 @@ setup(
     ],
 
     # project keywords
-    keywords = 'genie pyats test automation webdriver',
+    keywords='genie pyats test automation webdriver',
 
     # project packages
-    packages = find_packages(where = 'src'),
+    packages=find_namespace_packages(where='src'),
 
     # project directory
-    package_dir = {
+    package_dir={
         '': 'src',
     },
 
     # additional package data files that goes into the package itself
-    package_data = {
+    package_data={
     },
 
 
     # console entry point
-    entry_points = {
+    entry_points={
     },
 
     # package dependencies
-    install_requires = install_requires,
+    install_requires=install_requires,
 
     # any additional groups of dependencies.
     # install using: $ pip install -e .[dev]
-    extras_require = {
-        'dev': ['Sphinx', 
+    extras_require={
+        'dev': ['Sphinx',
                 'sphinx-rtd-theme'],
     },
 
     # external modules
-    ext_modules = [],
+    ext_modules=[],
 
     # any data files placed outside this package.
     # See: http://docs.python.org/3.4/distutils/setupscript.html
     # format:
     #   [('target', ['list', 'of', 'files'])]
     # where target is sys.prefix/<target>
-    data_files = [],
+    data_files=[],
 
     # non zip-safe (never tested it)
-    zip_safe = False,
+    zip_safe=False,
 )
