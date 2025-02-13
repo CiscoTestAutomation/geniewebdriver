@@ -42,7 +42,7 @@ PROD_USER     = pyadm@pyats-ci
 
 # Development pkg requirements
 DEPENDENCIES  = restview psutil Sphinx wheel asynctest
-DEPENDENCIES += setproctitle sphinx-rtd-theme
+DEPENDENCIES += sphinx-rtd-theme
 DEPENDENCIES += pip-tools
 
 # Dependencies for building documentation
