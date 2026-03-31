@@ -41,13 +41,13 @@ PYPIREPO      = pypitest
 PROD_USER     = pyadm@pyats-ci
 
 # Development pkg requirements
-DEPENDENCIES  = restview psutil Sphinx wheel asynctest
+DEPENDENCIES  = restview psutil Sphinx==7.4.7 wheel asynctest
 DEPENDENCIES += sphinx-rtd-theme
 DEPENDENCIES += pip-tools
 
 # Dependencies for building documentation
 # pinning sphinx as it creates dependancy issues with jinja2 and markupsafe
-DOCS_DEPENDENCIES = Sphinx==5.0.0 sphinxcontrib-napoleon sphinxcontrib-mockautodoc sphinx-rtd-theme
+DOCS_DEPENDENCIES = Sphinx==7.4.7 sphinxcontrib-napoleon sphinxcontrib-mockautodoc sphinx-rtd-theme
 
 
 .PHONY: clean package distribute develop undevelop help devnet\
