@@ -42,12 +42,12 @@ PROD_USER     = pyadm@pyats-ci
 
 # Development pkg requirements
 DEPENDENCIES  = restview psutil Sphinx==7.4.7 wheel asynctest
-DEPENDENCIES += sphinx-rtd-theme
+DEPENDENCIES += sphinx-rtd-theme==3.1.0
 DEPENDENCIES += pip-tools
 
 # Dependencies for building documentation
 # pinning sphinx as it creates dependancy issues with jinja2 and markupsafe
-DOCS_DEPENDENCIES = Sphinx==7.4.7 sphinxcontrib-napoleon sphinxcontrib-mockautodoc sphinx-rtd-theme
+DOCS_DEPENDENCIES = Sphinx==7.4.7 sphinxcontrib-napoleon sphinxcontrib-mockautodoc sphinx-rtd-theme==3.1.0
 
 
 .PHONY: clean package distribute develop undevelop help devnet\
