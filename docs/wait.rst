@@ -173,8 +173,8 @@ mechanism as attribute chains.
 - ``Wait().until_not`` is the inverse of above.
 
 The following is the list of available condition methods to be used with the
-above. Note that the optional arguments ``timeout``, ``poll_frequency``,
-``message`` and ``ignored_exceptions`` are not shown in the api input for
+above. Note that the optional arguments ``timeout``,``poll_frequency``,
+``message``and``ignored_exceptions`` are not shown in the api input for
 simplicity - they are applicable/useable as optional kwargs in all of them.
 
 ``.title_is(title)``

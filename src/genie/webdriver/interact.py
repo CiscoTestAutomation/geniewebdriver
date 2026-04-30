@@ -58,8 +58,7 @@ class Interactions(object):
 
         Arguments
             element (object): selenium element to double click on
-            locator (tuple): selenium locator tuple or kwargs describing the 
-                             location
+            locator (tuple): selenium locator tuple or kwargs describing the location
         '''
 
         if not element:
@@ -76,8 +75,7 @@ class Interactions(object):
 
         Arguments
             element (object): selenium element to double click on
-            locator (tuple): selenium locator tuple or kwargs describing the 
-                             location
+            locator (tuple): selenium locator tuple or kwargs describing the location
             x_offset/y_offset (int): pixel offets from uppler left top corner.
         '''
         
@@ -100,8 +98,7 @@ class Interactions(object):
 
         Arguments
             option (text): text to match for selection
-            locator (tuple): selenium locator tuple or kwargs describing the 
-                             location
+            locator (tuple): selenium locator tuple or kwargs describing the location
         '''
         locator = utils.translate_arguments(locator, **kwargs)
 
@@ -114,8 +111,7 @@ class Interactions(object):
 
         Arguments
             text (str): text to input
-            locator (tuple): selenium locator tuple or kwargs describing the 
-                             location
+            locator (tuple): selenium locator tuple or kwargs describing the location
         '''
         locator = utils.translate_arguments(locator, **kwargs)
 
@@ -126,8 +122,7 @@ class Interactions(object):
         '''send enter key to located element
 
         Arguments
-            locator (tuple): selenium locator tuple or kwargs describing the 
-                             location
+            locator (tuple): selenium locator tuple or kwargs describing the location
         '''
 
         locator = utils.translate_arguments(locator, **kwargs)
@@ -140,8 +135,7 @@ class Interactions(object):
         '''send tab key to located element
 
         Arguments
-            locator (tuple): selenium locator tuple or kwargs describing the 
-                             location
+            locator (tuple): selenium locator tuple or kwargs describing the location
         '''
         locator = utils.translate_arguments(locator, **kwargs)
 
@@ -176,8 +170,7 @@ class Interactions(object):
 
         Arguments
             element (object): selenium element to double click on
-            locator (tuple): selenium locator tuple or kwargs describing the 
-                             location
+            locator (tuple): selenium locator tuple or kwargs describing the location
         '''
 
         if not element:

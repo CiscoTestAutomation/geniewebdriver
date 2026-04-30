@@ -97,8 +97,8 @@ setup(
     # any additional groups of dependencies.
     # install using: $ pip install -e .[dev]
     extras_require = {
-        'dev': ['Sphinx', 
-                'sphinx-rtd-theme'],
+        'dev': ['Sphinx==7.4.7', 
+                'sphinx-rtd-theme==3.1.0'],
     },
 
     # external modules

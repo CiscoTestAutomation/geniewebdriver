@@ -8,7 +8,7 @@ elements (such as input boxes, buttons) using class attributes, more
 importantly, `Python Descriptor`_ attributes.
 
 This ``webdriver`` package takes this design pattern to the next level, and 
-introduces the standard base classes ``WebPage()`` and ``PageElement()``. 
+introduces the standard base classes ``WebPage()``and``PageElement()``. 
 These allows all web page automation libraries to look & feel the same, 
 following the same set of design concepts and implementation, reusing where
 applicable.
@@ -25,7 +25,7 @@ methods and attribute to represent interactions and form values. Features:
 - builds page URLs based on a base url and supports value substitution
 - :doc:`wait` and :doc:`interact` are both automatically added to class
 - can be used as a context manager using ``with`` statement.
-- wraps ``find_element()`` and ``find_elements()`` api with locator kwargs
+- wraps ``find_element()``and``find_elements()`` api with locator kwargs
   support.
 - redirect known calls (such as ``find_element_by_name()``) at class level to
   driver automatically.
@@ -122,9 +122,9 @@ and as well uses the PageElement_ to facilitate represent page content.
     ``**urlkwargs``, "keyword-arguments to be used to fullfill the URL template 
     through string substition"
 
-All ``WebPage()`` subclasses needs to define its unique ``URL`` attribute. This
+All ``WebPage()``subclasses needs to define its unique``URL`` attribute. This
 stores the relative url this page represents. Upon instantiation, any 
-``**urlkwargs`` provided to ``WebPage().__init__()`` will be used as 
+``**urlkwargs``provided to``WebPage().__init__()`` will be used as 
 string-substituion kwargs input to the URL, if provided.
 
 .. code-block:: python
@@ -182,7 +182,7 @@ PageElement Class
 The ``PageElement`` class further simplifies defining and locating page elements
 by combining a page element locator, its getter and setter functionality (which
 can be customized to suit the given element), into a `Python Descriptor`_. 
-``PageElement`` classes are designed to solely work with ``WebPage()`` classes,
+``PageElement``classes are designed to solely work with`` WebPage()`` classes,
 and can take advantage of their built-in :doc:`wait` and :doc:`interact`.
 
 The simplest ``PageElement`` instance describes web page element by some sort
@@ -238,7 +238,7 @@ the ability to retrieve page elements through attributes:
 
 In essense, ``PageElement`` class allows the user to wrap most commonly used 
 logic around getting & setting web page elements into python descriptor protocol
-``__set__()`` and ``__get__`` methods. The ``PageElement()`` class provides the
+``__set__()``and``__get__``methods. The``PageElement()`` class provides the
 basic getter based on the provided locator. Subclasses can therefore built on
 top and add more functionality.
 
@@ -248,7 +248,7 @@ This page includes the following subclasses for intuitive use:
     defines a text box input element using locator, locator kwargs, or a value.
     If value is provided, uses the predefined XPATH search pattern: 
     ``.//input[@type='text' and @value='{value}']`` to locate element. 
-    ``GET`` returns the current text box value, and ``SET`` automatically types 
+    ``GET``returns the current text box value, and``SET`` automatically types 
     text into the box. 
 
 ``genie.webdriver.element.Button(locator)``
